@@ -1,4 +1,4 @@
-import type { CaseItem, Stage } from "./types";
+import type { CaseItem, CubeDiagram, Stage } from "./types";
 
 const gray = "xxxxxxxxx";
 
