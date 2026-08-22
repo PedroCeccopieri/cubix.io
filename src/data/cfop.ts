@@ -122,8 +122,15 @@ const ollCases: CaseItem[] = [
 ];
 
 /** PLL — os 21 casos */
-function pllDiagram(up: string, right: string, down: string, left: string, arrows?: CaseItem["diagram"]["arrows"]) {
-  return { top: "yyyyyyyyy", sides: { up, right, down, left }, arrows };
+function pllDiagram(
+  up: string,
+  right: string,
+  down: string,
+  left: string,
+  arrows?: NonNullable<CubeDiagram["arrows"]>,
+): CubeDiagram {
+  const base: CubeDiagram = { top: "yyyyyyyyy", sides: { up, right, down, left } };
+  return arrows ? { ...base, arrows } : base;
 }
 
 const pllCases: CaseItem[] = [
