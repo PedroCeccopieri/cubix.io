@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MetodosRouteImport } from './routes/metodos'
+import { Route as ProgressoRouteImport } from './routes/progresso'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as PuzzlesIndexRouteImport } from './routes/puzzles.index'
 import { Route as PuzzlesPuzzleIdIndexRouteImport } from './routes/puzzles.$puzzleId.index'
 import { Route as PuzzlesPuzzleIdMethodIdIndexRouteImport } from './routes/puzzles.$puzzleId.$methodId.index'
@@ -24,6 +26,16 @@ const IndexRoute = IndexRouteImport.update({
 const MetodosRoute = MetodosRouteImport.update({
   id: '/metodos',
   path: '/metodos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressoRoute = ProgressoRouteImport.update({
+  id: '/progresso',
+  path: '/progresso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PuzzlesIndexRoute = PuzzlesIndexRouteImport.update({
@@ -52,6 +64,8 @@ const PuzzlesPuzzleIdMethodIdCaseIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/metodos': typeof MetodosRoute
+  '/progresso': typeof ProgressoRoute
+  '/sobre': typeof SobreRoute
   '/puzzles/': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId/': typeof PuzzlesPuzzleIdIndexRoute
   '/puzzles/$puzzleId/$methodId/$caseId': typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
@@ -60,6 +74,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/metodos': typeof MetodosRoute
+  '/progresso': typeof ProgressoRoute
+  '/sobre': typeof SobreRoute
   '/puzzles': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId': typeof PuzzlesPuzzleIdIndexRoute
   '/puzzles/$puzzleId/$methodId/$caseId': typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
@@ -69,6 +85,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/metodos': typeof MetodosRoute
+  '/progresso': typeof ProgressoRoute
+  '/sobre': typeof SobreRoute
   '/puzzles/': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId/': typeof PuzzlesPuzzleIdIndexRoute
   '/puzzles/$puzzleId/$methodId/$caseId': typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
@@ -79,6 +97,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/metodos'
+    | '/progresso'
+    | '/sobre'
     | '/puzzles/'
     | '/puzzles/$puzzleId/'
     | '/puzzles/$puzzleId/$methodId/$caseId'
@@ -87,6 +107,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/metodos'
+    | '/progresso'
+    | '/sobre'
     | '/puzzles'
     | '/puzzles/$puzzleId'
     | '/puzzles/$puzzleId/$methodId/$caseId'
@@ -95,6 +117,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/metodos'
+    | '/progresso'
+    | '/sobre'
     | '/puzzles/'
     | '/puzzles/$puzzleId/'
     | '/puzzles/$puzzleId/$methodId/$caseId'
@@ -104,6 +128,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MetodosRoute: typeof MetodosRoute
+  ProgressoRoute: typeof ProgressoRoute
+  SobreRoute: typeof SobreRoute
   PuzzlesIndexRoute: typeof PuzzlesIndexRoute
   PuzzlesPuzzleIdIndexRoute: typeof PuzzlesPuzzleIdIndexRoute
   PuzzlesPuzzleIdMethodIdCaseIdRoute: typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
@@ -124,6 +150,20 @@ declare module '@tanstack/react-router' {
       path: '/metodos'
       fullPath: '/metodos'
       preLoaderRoute: typeof MetodosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progresso': {
+      id: '/progresso'
+      path: '/progresso'
+      fullPath: '/progresso'
+      preLoaderRoute: typeof ProgressoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/puzzles/': {
@@ -160,6 +200,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MetodosRoute: MetodosRoute,
+  ProgressoRoute: ProgressoRoute,
+  SobreRoute: SobreRoute,
   PuzzlesIndexRoute: PuzzlesIndexRoute,
   PuzzlesPuzzleIdIndexRoute: PuzzlesPuzzleIdIndexRoute,
   PuzzlesPuzzleIdMethodIdCaseIdRoute: PuzzlesPuzzleIdMethodIdCaseIdRoute,
