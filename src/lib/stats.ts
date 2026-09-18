@@ -1,5 +1,9 @@
-import { caseKey } from "./progress";
 import type { Method, Puzzle, Stage } from "@/data/types";
+
+
+export function caseKey(puzzleId: string, methodId: string, caseId: string) {
+  return `${puzzleId}/${methodId}/${caseId}`;
+}
 
 export function stageKeys(puzzleId: string, methodId: string, stage: Stage) {
   return stage.cases.map((c) => caseKey(puzzleId, methodId, c.id));

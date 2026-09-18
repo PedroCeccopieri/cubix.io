@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 const nav = [
   { to: "/", label: "Início", icon: Home, exact: true },
   { to: "/puzzles", label: "Puzzles", icon: Boxes, exact: false },
-  { to: "/metodos", label: "Métodos", icon: Layers, exact: false },
-  { to: "/progresso", label: "Meu progresso", icon: TrendingUp, exact: false },
+  { to: "/methods", label: "Métodos", icon: Layers, exact: false },
+  { to: "/progress", label: "Meu progresso", icon: TrendingUp, exact: false },
   { to: "/sobre", label: "Sobre", icon: Info, exact: false },
 ] as const;
 

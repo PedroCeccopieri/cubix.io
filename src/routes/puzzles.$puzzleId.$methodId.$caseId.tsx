@@ -1,33 +1,30 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, Circle, PlayCircle } from "lucide-react";
 
-import { AlgorithmBlock } from "@/components/AlgorithmBlock";
-import { CubeDiagram } from "@/components/CubeDiagram";
+import { NxNTopDiagram } from "@/components/diagrams/NxNTopDiagram";
+import { AlgorithmList } from "@/components/AlgorithmList";
+
+import { useProgress } from "@/contexts/ProgressContext";
+
 import { allCasesOf, getCase } from "@/data/puzzles";
-import { caseKey, useProgress } from "@/lib/progress";
+
+import { caseKey } from "@/lib/stats";
+
 
 export const Route = createFileRoute("/puzzles/$puzzleId/$methodId/$caseId")({
-  loader: ({ params }) => {
-    const { puzzle, method, stage, item } = getCase(params.puzzleId, params.methodId, params.caseId);
-    if (!puzzle || !method || !stage || !item) throw notFound();
-    const flat = allCasesOf(method);
-    const index = flat.findIndex((c) => c.item.id === item.id);
-    return {
-      puzzle,
-      method,
-      stage,
-      item,
-      prev: index > 0 ? flat[index - 1]!.item : null,
-      next: index < flat.length - 1 ? flat[index + 1]!.item : null,
-    };
-  },
-  head: ({ loaderData }) => {
-    const title = loaderData
-      ? `${loaderData.item.name} — ${loaderData.method.shortName ?? loaderData.method.name} | CubeLab`
-      : "Caso | CubeLab";
-    const description = loaderData
-      ? `Algoritmo ${loaderData.item.algorithm} — ${loaderData.item.execution}`
-      : "Caso de algoritmo do CubeLab.";
+  loader: ({ params }) => loaderFunction(params),
+  head: ({ loaderData }) => headContent(loaderData),
+  component: CasePage
+});
+
+function headContent(loaderData: any) {
+  const title = loaderData
+    ? `${loaderData.item.name} — ${loaderData.method.shortName ?? loaderData.method.name} | Cubix.io`
+    : "Caso | Cubix.io";
+  const description = loaderData
+    ? `Algoritmo ${loaderData.item.algorithm} — ${loaderData.item.execution}`
+    : "Caso de algoritmo do Cubix.io.";
+  
     return {
       meta: [
         { title },
@@ -36,21 +33,26 @@ export const Route = createFileRoute("/puzzles/$puzzleId/$methodId/$caseId")({
         { property: "og:description", content: description.slice(0, 155) },
         { property: "og:type", content: "article" },
         { name: "twitter:card", content: "summary_large_image" },
-        ...(loaderData ? [] : [{ name: "robots", content: "noindex" }]),
-      ],
-    };
-  },
-  component: CasePage,
-});
+        ...(loaderData ? [] : [{ name: "robots", content: "noindex" }])
+      ]
+    }
+}
 
-const notation = [
-  ["R / L / U / D / F / B", "gire a face correspondente 90° no sentido horário"],
-  ["R' (linha)", "mesma face, sentido anti-horário"],
-  ["R2", "mesma face, meia volta (180°)"],
-  ["r / u / f (minúsculo)", "gira duas camadas ao mesmo tempo (wide)"],
-  ["M / E / S", "camadas do meio"],
-  ["x / y / z", "rotação do cubo inteiro"],
-];
+function loaderFunction(params: any) {
+    const { puzzle, method, stage, item } = getCase(params.puzzleId, params.methodId, params.caseId);
+    if (!puzzle || !method || !stage || !item) throw notFound();
+    const flat = allCasesOf(method);
+    const index = flat.findIndex((c) => c.item.id === item.id);
+
+    return {
+      puzzle,
+      method,
+      stage,
+      item,
+      prev: index > 0 ? flat[index - 1]!.item : null,
+      next: index < flat.length - 1 ? flat[index + 1]!.item : null
+    }
+  }
 
 function CasePage() {
   const { puzzle, method, stage, item, prev, next } = Route.useLoaderData();
@@ -70,14 +72,13 @@ function CasePage() {
 
       <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-8 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center">
         <div className="surface-card grid place-items-center p-5">
-          <CubeDiagram diagram={item.diagram} size={210} />
+          {item.getDiagram(item.diagram, 210)}
         </div>
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            {stage.name}
-            {item.group ? ` · ${item.group}` : ""}
+            {stage.name} {item.group ? ` - ${item.group}` : ""}
           </p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">{item.name}</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl"> {item.name} </h1>
           <p className="mt-3 text-muted-foreground">{item.execution}</p>
           <button
             onClick={() => toggle(key)}
@@ -94,41 +95,23 @@ function CasePage() {
       </div>
 
       <section className="mt-12">
-        <h2 className="text-lg font-semibold">Algoritmo</h2>
-        <AlgorithmBlock className="mt-3" algorithm={item.algorithm} size="lg" />
-        {item.alternatives?.map((alt) => (
-          <AlgorithmBlock key={alt} className="mt-3" algorithm={alt} />
-        ))}
+        <AlgorithmList algs = {item.algorithms} itemKey={key} />
       </section>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2">
-        <section className="surface-card p-5">
-          <h2 className="text-lg font-semibold">Dicas para memorizar</h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {item.memoTip ??
-              "Divida o algoritmo em gatilhos curtos (R U R', F R F') e repita cada bloco devagar antes de juntar tudo."}
-          </p>
-        </section>
-        <section className="surface-card p-5">
-          <h2 className="text-lg font-semibold">Dicas de execução</h2>
-          <p className="mt-3 text-sm text-muted-foreground">{item.execution}</p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Execute devagar dez vezes seguidas antes de tentar velocidade. Consistência vem antes de TPS.
-          </p>
-        </section>
+        {item.memoTip && (
+          <section className="surface-card p-5">
+            <h2 className="text-lg font-semibold">Dicas para memorizar</h2>
+            <p className="mt-3 text-sm text-muted-foreground">{item.memoTip}</p>
+          </section>
+        )}
+        {item.execution && (
+          <section className="surface-card p-5">
+            <h2 className="text-lg font-semibold">Dicas de execução</h2>
+            <p className="mt-3 text-sm text-muted-foreground">{item.execution}</p>
+          </section>
+        )}
       </div>
-
-      <section className="mt-10">
-        <h2 className="text-lg font-semibold">Notação utilizada</h2>
-        <dl className="mt-4 grid gap-3 sm:grid-cols-2">
-          {notation.map(([sym, meaning]) => (
-            <div key={sym} className="rounded-xl border border-border bg-card px-4 py-3">
-              <dt className="font-mono text-sm font-semibold">{sym}</dt>
-              <dd className="mt-1 text-sm text-muted-foreground">{meaning}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
 
       {item.videoUrl && (
         <a

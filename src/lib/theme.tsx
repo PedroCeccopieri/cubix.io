@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-const KEY = "cubelab:theme";
+const KEY = "cubix:theme";
 
 export function useTheme() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
