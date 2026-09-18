@@ -13,8 +13,8 @@ export const Route = createFileRoute("/puzzles/$puzzleId/")({
 });
 
 function headContent(loaderData: any) {
-  const name = loaderData?.puzzle.name ?? "Puzzle";
-  const description = loaderData?.puzzle.description ?? "Métodos e algoritmos para resolver o puzzle.";
+  const name = loaderData?.name ?? "Puzzle";
+  const description = loaderData?.description ?? "Métodos e algoritmos para resolver o puzzle.";
   
   return {
     meta: [
@@ -32,11 +32,15 @@ function headContent(loaderData: any) {
 function loaderFunction(params: any) {
   const puzzle = getPuzzle(params.puzzleId);
   if (!puzzle) throw notFound();
-  return { puzzle };
+  // Retorna apenas dados serializáveis; o objeto completo é resolvido no componente.
+  return { puzzleId: puzzle.id, name: puzzle.name, description: puzzle.description };
 }
 
 function PuzzlePage() {
-  const { puzzle } = Route.useLoaderData();
+  const { puzzleId } = Route.useLoaderData();
+  const puzzle = getPuzzle(puzzleId);
+  if (!puzzle) throw notFound();
+  
   
   const others = puzzlesList.filter((p) => p.id !== puzzle.id).slice(0, 4);
 
