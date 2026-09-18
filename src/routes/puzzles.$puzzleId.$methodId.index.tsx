@@ -19,8 +19,8 @@ export const Route = createFileRoute("/puzzles/$puzzleId/$methodId/")({
 });
 
 function headContent(loaderData: any) {
-  const title = loaderData ? `${loaderData.method.name} — ${loaderData.puzzle.name} | CubeLab` : "Método | CubeLab";
-  const description = loaderData?.method.longDescription ?? loaderData?.method.description ?? "Curso completo com etapas, casos e algoritmos.";
+  const title = loaderData ? `${loaderData.methodName} — ${loaderData.puzzleName} | CubeLab` : "Método | CubeLab";
+  const description = loaderData?.description ?? "Curso completo com etapas, casos e algoritmos.";
   return {
     meta: [
       { title },
@@ -37,11 +37,20 @@ function headContent(loaderData: any) {
 function loaderFunction(params: any) {
   const { puzzle, method } = getMethod(params.puzzleId, params.methodId);
   if (!puzzle || !method) throw notFound();
-  return { puzzle, method };
+  // Retorna apenas dados serializáveis; os objetos completos são resolvidos no componente.
+  return {
+    puzzleId: puzzle.id,
+    methodId: method.id,
+    puzzleName: puzzle.name,
+    methodName: method.name,
+    description: method.longDescription ?? method.description
+  };
 }
 
 function MethodPage() {
-  const { puzzle, method } = Route.useLoaderData();
+  const { puzzleId, methodId } = Route.useLoaderData();
+  const { puzzle, method } = getMethod(puzzleId, methodId);
+  if (!puzzle || !method) throw notFound();
   const { countLearned } = useProgress();
 
   const keys = methodKeys(puzzle.id, method);

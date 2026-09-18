@@ -19,10 +19,10 @@ export const Route = createFileRoute("/puzzles/$puzzleId/$methodId/$caseId")({
 
 function headContent(loaderData: any) {
   const title = loaderData
-    ? `${loaderData.item.name} — ${loaderData.method.shortName ?? loaderData.method.name} | Cubix.io`
+    ? `${loaderData.name} — ${loaderData.methodName} | Cubix.io`
     : "Caso | Cubix.io";
   const description = loaderData
-    ? `Algoritmo ${loaderData.item.algorithm} — ${loaderData.item.execution}`
+    ? `Algoritmo ${loaderData.algorithm} — ${loaderData.execution}`
     : "Caso de algoritmo do Cubix.io.";
   
     return {
@@ -41,21 +41,29 @@ function headContent(loaderData: any) {
 function loaderFunction(params: any) {
     const { puzzle, method, stage, item } = getCase(params.puzzleId, params.methodId, params.caseId);
     if (!puzzle || !method || !stage || !item) throw notFound();
-    const flat = allCasesOf(method);
-    const index = flat.findIndex((c) => c.item.id === item.id);
 
+    // Retorna apenas dados serializáveis; os objetos completos são resolvidos no componente.
     return {
-      puzzle,
-      method,
-      stage,
-      item,
-      prev: index > 0 ? flat[index - 1]!.item : null,
-      next: index < flat.length - 1 ? flat[index + 1]!.item : null
+      puzzleId: puzzle.id,
+      methodId: method.id,
+      caseId: item.id,
+      name: item.name,
+      methodName: method.shortName ?? method.name,
+      algorithm: item.algorithms[0] ?? "",
+      execution: item.execution ?? ""
     }
   }
 
 function CasePage() {
-  const { puzzle, method, stage, item, prev, next } = Route.useLoaderData();
+  const { puzzleId, methodId, caseId } = Route.useLoaderData();
+  const { puzzle, method, stage, item } = getCase(puzzleId, methodId, caseId);
+  if (!puzzle || !method || !stage || !item) throw notFound();
+
+  const flat = allCasesOf(method);
+  const index = flat.findIndex((c) => c.item.id === item.id);
+  const prev = index > 0 ? flat[index - 1]!.item : null;
+  const next = index < flat.length - 1 ? flat[index + 1]!.item : null;
+
   const { isLearned, toggle } = useProgress();
   const key = caseKey(puzzle.id, method.id, item.id);
   const learned = isLearned(key);

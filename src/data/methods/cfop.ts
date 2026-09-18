@@ -1,6 +1,6 @@
 import type { CaseItem, Stage } from "@/data/types";
 import { NxNTop, NxNIso } from "@/components/diagrams/diagramsGetters";
-import {nxnisodiagram} from "@/data/diagramTypes";
+import {nxntopdiagram, nxnisodiagram} from "@/data/diagramTypes";
 
 const f2lCases: CaseItem[] = [
   {
@@ -9,7 +9,7 @@ const f2lCases: CaseItem[] = [
     group: "Casos fáceis",
     algorithms: ["U' L' U L"],
     diagram: { face: "ggggggggg", top: "yyyyyyyyy", right: "rrrrrrrrr" },
-    getDiagram: (diagram, size, classname) => NxNIso(diagram, 3, size, classname),
+    getDiagram: (diagram, size, classname) => NxNIso(diagram as nxnisodiagram, 3, size, classname),
     execution: "Com o par canto+aresta já unido no topo, leve-o acima do slot e insira.",
     memoTip: "Todo F2L é uma variação de 'tirar do slot, juntar, devolver'.",
   }
@@ -22,7 +22,7 @@ const ollCases: CaseItem[] = [
     group: "Cruz amarela formada",
     algorithms: ["R U2 R' U' R U R' U' R U' R'"],
     diagram: {topStickers: "xxxxxxxxx", sidesStickers: {up: "xxx", right: "xxx", left: "xxx", down: "xxx"}},
-    getDiagram: (diagram, size, classname) => NxNTop(diagram, 3, size, classname),
+    getDiagram: (diagram, size, classname) => NxNTop(diagram as nxntopdiagram, 3, size, classname),
     execution:
       "Comece com a cruz amarela pronta e os quatro cantos virados. Segure com dois cantos amarelos apontando para os lados esquerdo e direito.",
     memoTip: "É o 'Sune duplo': faça um Sune e desfaça-o com o movimento espelhado.",
@@ -36,7 +36,7 @@ const pllCases: CaseItem[] = [
     group: "Permutação de cantos",
     algorithms: ["x R' U R' D2 R U' R' D2 R2", "x' L U' L D2 L' U L D2 L2"],
     diagram: {topStickers: "xxxxxxxxx"},
-    getDiagram: (diagram, size, classname) => NxNTop(diagram, 3, size, classname),
+    getDiagram: (diagram, size, classname) => NxNTop(diagram as nxntopdiagram, 3, size, classname),
     execution: "Três cantos giram no sentido horário. As headlights ficam à esquerda.",
     memoTip: "Aa e Ab são espelhos: mude só o sentido do primeiro U.",
   },
