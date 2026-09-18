@@ -6,8 +6,6 @@ import { usePreferences } from "@/contexts/PreferencesContext";
 
 import { Puzzle, Method, CaseItem } from "@/data/types";
 import { AlgorithmBlock } from "@/components/AlgorithmBlock";
-import { NxNTopDiagram } from "@/components/diagrams/NxNTopDiagram";
-import { NxNIsoDiagram } from "@/components/diagrams/NxNIsoDiagram";
 
 import { caseKey } from "@/lib/stats";
 

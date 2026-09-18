@@ -4,7 +4,8 @@ import { PageHeader } from "@/components/AppShell";
 import { PuzzleGlyph } from "@/components/diagrams/NxNTopDiagram";
 import { MethodCard } from "@/components/MethodCard";
 
-import { getPuzzle, puzzlesList } from "@/data/puzzles";
+import { puzzlesList } from "@/data/puzzles";
+import { getPuzzle } from "@/data/utils";
 
 export const Route = createFileRoute("/puzzles/$puzzleId/")({
   loader: ({ params }) => loaderFunction(params),
@@ -32,7 +33,6 @@ function headContent(loaderData: any) {
 function loaderFunction(params: any) {
   const puzzle = getPuzzle(params.puzzleId);
   if (!puzzle) throw notFound();
-  // Retorna apenas dados serializáveis; o objeto completo é resolvido no componente.
   return { puzzleId: puzzle.id, name: puzzle.name, description: puzzle.description };
 }
 

@@ -100,7 +100,6 @@ export function NxNIsoDiagram (
   const minY = Math.min(...ys);
   const maxY = Math.max(...ys);
 
-  // Normaliza os pontos para 0–100
   const width = maxX - minX;
   const height = maxY - minY;
   const scale = 90;

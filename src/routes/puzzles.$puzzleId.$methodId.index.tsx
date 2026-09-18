@@ -7,7 +7,7 @@ import { ProgressBar } from "@/components/ProgressBar";
 
 import { useProgress } from "@/contexts/ProgressContext";
 
-import { getMethod } from "@/data/puzzles";
+import { getMethod } from "@/data/utils";
 import { difficultyLabel } from "@/data/types";
 
 import { methodKeys, pct } from "@/lib/stats";

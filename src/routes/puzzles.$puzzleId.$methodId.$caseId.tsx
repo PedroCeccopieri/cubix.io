@@ -1,12 +1,11 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, Circle, PlayCircle } from "lucide-react";
 
-import { NxNTopDiagram } from "@/components/diagrams/NxNTopDiagram";
 import { AlgorithmList } from "@/components/AlgorithmList";
 
 import { useProgress } from "@/contexts/ProgressContext";
 
-import { allCasesOf, getCase } from "@/data/puzzles";
+import { allCasesOf, getCase } from "@/data/utils";
 
 import { caseKey } from "@/lib/stats";
 
@@ -42,7 +41,6 @@ function loaderFunction(params: any) {
     const { puzzle, method, stage, item } = getCase(params.puzzleId, params.methodId, params.caseId);
     if (!puzzle || !method || !stage || !item) throw notFound();
 
-    // Retorna apenas dados serializáveis; os objetos completos são resolvidos no componente.
     return {
       puzzleId: puzzle.id,
       methodId: method.id,
@@ -92,7 +90,7 @@ function CasePage() {
             onClick={() => toggle(key)}
             className={
               learned
-                ? "mt-6 inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-[color:var(--cube-green)]"
+                ? "mt-6 inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-cube-green"
                 : "mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
             }
           >

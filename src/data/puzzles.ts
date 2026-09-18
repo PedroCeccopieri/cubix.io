@@ -1,54 +1,5 @@
-import { cfopStages } from "./methods/cfop";
-import type { Method, Puzzle } from "./types";
-
-const cfop: Method = {
-  id: "cfop",
-  name: "CFOP (Fridrich)",
-  shortName: "CFOP",
-  description:
-    "O método mais usado por speedcubers. Cross, F2L, OLL e PLL em quatro etapas bem definidas.",
-  longDescription:
-    "O CFOP divide a resolução em quatro etapas: a cruz na face de baixo, as duas primeiras camadas resolvidas em pares, a orientação da última camada e, por fim, a permutação. É o caminho natural para quem quer descer abaixo de 20 segundos.",
-  difficulty: 2,
-  stages: cfopStages,
-};
-
-const lbl: Method = {
-  id: "lbl",
-  name: "Método de Camadas (LBL)",
-  shortName: "LBL",
-  description:
-    "O caminho mais direto para resolver o cubo pela primeira vez: uma camada de cada vez.",
-  longDescription:
-    "Layer by Layer resolve o cubo em sete passos intuitivos com pouquíssimos algoritmos para decorar. É o ponto de partida ideal antes de migrar para o CFOP.",
-  difficulty: 1,
-  stages: [],
-  comingSoon: true,
-};
-
-const roux: Method = {
-  id: "roux",
-  name: "Roux",
-  description:
-    "Baseado em blocos e movimentos de M, com poucos algoritmos e contagem de movimentos baixa.",
-  difficulty: 3,
-  stages: [],
-  comingSoon: true,
-};
-
-const zz: Method = {
-  id: "zz",
-  name: "ZZ",
-  description:
-    "Orienta todas as arestas logo no começo (EOLine) e elimina rotações durante o F2L.",
-  difficulty: 3,
-  stages: [],
-  comingSoon: true,
-};
-
-function soonMethod(id: string, name: string, description: string, difficulty: Method["difficulty"]): Method {
-  return { id, name, description, difficulty, stages: [], comingSoon: true };
-}
+import type { Puzzle } from "./types";
+import { soonMethod, cfop, lbl, roux, zz } from "@/data/methods";
 
 export const puzzlesList: Puzzle[] = [
   {
@@ -151,32 +102,3 @@ export const puzzlesList: Puzzle[] = [
     comingSoon: true,
   },
 ];
-
-export function getPuzzle(id: string) {
-  return puzzlesList.find((p) => p.id === id);
-}
-
-export function getMethod(puzzleId: string, methodId: string) {
-  const puzzle = getPuzzle(puzzleId);
-  return { puzzle, method: puzzle?.methods.find((m) => m.id === methodId) };
-}
-
-export function getCase(puzzleId: string, methodId: string, caseId: string) {
-  const { puzzle, method } = getMethod(puzzleId, methodId);
-  if (!method) return { puzzle, method, stage: undefined, item: undefined };
-  for (const stage of method.stages) {
-    const item = stage.cases.find((c) => c.id === caseId);
-    if (item) return { puzzle, method, stage, item };
-  }
-  return { puzzle, method, stage: undefined, item: undefined };
-}
-
-export function methodCaseIds(method: Method) {
-  return method.stages.flatMap((s) => s.cases.map((c) => `${method.id}/${c.id}`));
-}
-
-export function allCasesOf(method: Method) {
-  return method.stages.flatMap((s) => s.cases.map((c) => ({ stage: s, item: c })));
-}
-
-export const totalCasesCount = puzzlesList.reduce((acc, p) => acc + p.methods.reduce((a, m) => a + m.stages.reduce((x, s) => x + s.cases.length, 0), 0),  0);

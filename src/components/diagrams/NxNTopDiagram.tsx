@@ -20,8 +20,8 @@ export function NxNTopDiagram (
   const unit = 100 / (n + 2);
   const gap = 1.5;
   
-  const top = diagram.topStickers.padEnd(n*n, "x").slice(0, n*n);
-  const sides = diagram.sidesStickers;
+  const top = diagram.top.padEnd(n*n, "x").slice(0, n*n);
+  const sides = diagram.sides;
 
   const cells: React.ReactNode[] = [];
 
