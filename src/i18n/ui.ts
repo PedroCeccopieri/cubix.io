@@ -12,7 +12,7 @@ const pt = {
   comingSoon: "Em breve",
   available: "Disponível",
   view: "Ver",
-  methodCount: (n: number) => (n === 1 ? "método" : "métodos"),
+  methodCount: (n: number): string => (n === 1 ? "método" : "métodos"),
   yourProgress: "Seu progresso",
   progress: "Progresso",
   cases: "casos",
