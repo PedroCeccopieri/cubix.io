@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 import { ProgressProvider } from "@/contexts/ProgressContext";
 import { PreferencesProvider } from "@/contexts/PreferencesContext";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: headContent,
@@ -29,7 +30,7 @@ function headContent() {
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }
     ],
-    
+
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap" },
@@ -63,10 +64,12 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ProgressProvider>
         <PreferencesProvider>
-          <AppShell>
-            <Outlet />
-          </AppShell>
-          <Toaster position="top-center" richColors />
+          <LanguageProvider>
+            <AppShell>
+              <Outlet />
+            </AppShell>
+            <Toaster position="top-center" richColors />
+          </LanguageProvider>
         </PreferencesProvider>
       </ProgressProvider>
     </QueryClientProvider>
@@ -97,7 +100,7 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent( { error, reset }: { error: Error; reset: () => void } ) {
-  
+
   console.error(error);
   const router = useRouter();
 

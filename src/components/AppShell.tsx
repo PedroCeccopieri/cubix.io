@@ -3,15 +3,8 @@ import { Boxes, Home, Info, Layers, Menu, Moon, Sun, TrendingUp, X } from "lucid
 import { useState, type ReactNode } from "react";
 
 import { useTheme } from "@/lib/theme";
+import { useLang } from "@/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
-
-const nav = [
-  { to: "/", label: "Início", icon: Home, exact: true },
-  { to: "/puzzles", label: "Puzzles", icon: Boxes, exact: false },
-  { to: "/methods", label: "Métodos", icon: Layers, exact: false },
-  { to: "/progress", label: "Meu progresso", icon: TrendingUp, exact: false },
-  { to: "/sobre", label: "Sobre", icon: Info, exact: false },
-] as const;
 
 function Logo() {
   return (
@@ -40,7 +33,41 @@ function ThemeToggle() {
   );
 }
 
+function LangToggle() {
+  const { lang, setLang, t } = useLang();
+  return (
+    <div
+      role="group"
+      aria-label={t.languageLabel}
+      className="flex shrink-0 items-center rounded-lg border border-border bg-card p-0.5"
+    >
+      {(["pt", "en"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+          className={cn(
+            "rounded-md px-2 py-1 text-xs font-semibold uppercase transition-colors",
+            lang === l ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
+  const { t } = useLang();
+  const nav = [
+    { to: "/", label: t.nav.home.label, icon: Home, exact: true },
+    { to: "/puzzles", label: t.nav.puzzles.label, icon: Boxes, exact: false },
+    { to: "/methods", label: t.nav.methods.label, icon: Layers, exact: false },
+    { to: "/progress", label: t.nav.progress.label, icon: TrendingUp, exact: false },
+    { to: "/sobre", label: t.nav.about.label, icon: Info, exact: false },
+  ] as const;
+
   return (
     <nav className="flex flex-col gap-1">
       {nav.map((item) => (
@@ -63,6 +90,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const { t } = useLang();
 
   return (
     <div className="min-h-screen lg:flex">
@@ -71,15 +99,22 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Logo />
           <NavLinks />
         </div>
-        <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-3 py-2.5">
-          <span className="truncate text-xs text-muted-foreground">Tema da interface</span>
-          <ThemeToggle />
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-3 py-2.5">
+            <span className="truncate text-xs text-muted-foreground">{t.languageLabel}</span>
+            <LangToggle />
+          </div>
+          <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-3 py-2.5">
+            <span className="truncate text-xs text-muted-foreground">{t.themeLabel}</span>
+            <ThemeToggle />
+          </div>
         </div>
       </aside>
 
       <header className="sticky top-0 z-40 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-border bg-background/85 px-4 py-3 backdrop-blur lg:hidden">
         <Logo />
         <div className="flex shrink-0 items-center gap-2">
+          <LangToggle />
           <ThemeToggle />
           <button
             onClick={() => setOpen((v) => !v)}
@@ -99,7 +134,13 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className={cn("min-w-0 flex-1 pb-20 lg:pb-0")}>{children}</main>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-background/95 backdrop-blur lg:hidden">
-        {nav.map((item) => (
+        {[
+          { to: "/", label: t.nav.home.label, short: t.nav.home.short, icon: Home, exact: true },
+          { to: "/puzzles", label: t.nav.puzzles.label, short: t.nav.puzzles.short, icon: Boxes, exact: false },
+          { to: "/methods", label: t.nav.methods.label, short: t.nav.methods.short, icon: Layers, exact: false },
+          { to: "/progress", label: t.nav.progress.label, short: t.nav.progress.short, icon: TrendingUp, exact: false },
+          { to: "/sobre", label: t.nav.about.label, short: t.nav.about.short, icon: Info, exact: false },
+        ].map((item) => (
           <Link
             key={item.to}
             to={item.to}
@@ -109,7 +150,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             className="flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium"
           >
             <item.icon className="h-4 w-4" />
-            <span className="truncate px-1">{item.label.split(" ")[0]}</span>
+            <span className="truncate px-1">{item.short}</span>
           </Link>
         ))}
       </nav>
