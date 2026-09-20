@@ -32,7 +32,7 @@ function PuzzlesPage() {
       <PageHeader
         eyebrow={t.home.catalogEyebrow}
         title={t.nav.puzzles.label}
-        description="Escolha um puzzle para ver os métodos disponíveis, as etapas do curso e todos os casos com algoritmos."
+        description={t.puzzlesPageDescription}
       />
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {puzzlesList.map((p) => (
