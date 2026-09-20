@@ -5,42 +5,9 @@ import { BookOpen, Boxes, Sparkles, Timer } from "lucide-react";
 import { PageHeader } from "@/components/AppShell";
 import { PuzzleGlyph } from "@/components/diagrams/NxNTopDiagram";
 import { PuzzleCard } from "@/components/PuzzleCard";
+import { useLang } from "@/i18n/LanguageContext";
 
 import { puzzlesList } from "@/data/puzzles";
-
-const bannerBadgeText = "Métodos completos de speedcubing";
-const bannerHeadlineText = "Aprenda a resolver qualquer puzzle";
-const bannerSubtitleText = "Aprenda métodos, pratique casos e domine os algoritmos dos seus puzzles favoritos.";
-
-const catalogEyebrowText = "Catálogo";
-const catalogTitleText = "Escolha seu puzzle";
-const catalogDescriptionText = "Cada puzzle possui métodos completos, etapas e casos com algoritmos prontos para treinar.";
-
-const howWorksEyebrowText = "Como funciona"
-const howWorksTitleText = "Quatro passos até o cubo resolvido"
-
-const steps = [
-  {
-    icon: Boxes,
-    title: "Escolha seu puzzle",
-    text: "Escolha entre os puzzles disponíveis."
-  },
-  {
-    icon: BookOpen,
-    title: "Escolha um método",
-    text: "Aprenda com o método que melhor se adapta ao seu objetivo."
-  },
-  {
-    icon: Sparkles,
-    title: "Aprenda os casos",
-    text: "Estude cada caso individualmente com diagrama, algoritmo e explicação."
-  },
-  {
-    icon: Timer,
-    title: "Pratique e acompanhe",
-    text: "Marque os casos aprendidos e veja sua evolução em cada etapa."
-  }
-];
 
 export const Route = createFileRoute("/")({
   head: headContent,
@@ -61,6 +28,8 @@ function headContent() {
 }
 
 function Index() {
+  const { t } = useLang();
+
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-8 sm:py-14">
       <section className="grid-backdrop relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-14 sm:px-12 sm:py-20">
@@ -72,22 +41,22 @@ function Index() {
         </div>
         <div className="relative max-w-2xl">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5 text-primary" /> {bannerBadgeText}
+            <Sparkles className="h-3.5 w-3.5 text-primary" /> {t.home.badge}
           </p>
           <h1 className="text-4xl font-bold leading-[1.05] sm:text-6xl">
-            {bannerHeadlineText.split(" ").slice(0, 3).join(" ")} <span className="text-gradient-cube"> {bannerHeadlineText.split(" ").slice(3).join(" ")} </span>
+            {t.home.headline.split(" ").slice(0, 3).join(" ")} <span className="text-gradient-cube"> {t.home.headline.split(" ").slice(3).join(" ")} </span>
           </h1>
           <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-            {bannerSubtitleText}
+            {t.home.subtitle}
           </p>
         </div>
       </section>
 
       <section className="mt-16">
         <PageHeader
-          eyebrow = {catalogEyebrowText}
-          title = {catalogTitleText}
-          description = {catalogDescriptionText}
+          eyebrow = {t.home.catalogEyebrow}
+          title = {t.home.catalogTitle}
+          description = {t.home.catalogDescription}
         />
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {puzzlesList.map((p) => ( <PuzzleCard key={p.id} puzzle={p} /> ))}
@@ -96,15 +65,15 @@ function Index() {
 
       <section className="mt-20">
         <PageHeader
-          eyebrow = {howWorksEyebrowText}
-          title = {howWorksTitleText}
+          eyebrow = {t.home.howEyebrow}
+          title = {t.home.howTitle}
         />
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s, i) => (
+          {t.home.steps.map((s, i) => (
             <div key={s.title} className="surface-card surface-card-hover p-5">
               <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-muted text-primary">
-                  <s.icon className="h-5 w-5" />
+                  {[Boxes, BookOpen, Sparkles, Timer][i] && (() => { const Icon = [Boxes, BookOpen, Sparkles, Timer][i]!; return <Icon className="h-5 w-5" />; })()}
                 </span>
                 <span className="font-mono text-sm text-muted-foreground">0{i + 1}</span>
               </div>
