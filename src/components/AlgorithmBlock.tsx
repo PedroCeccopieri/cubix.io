@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { usePreferences } from "@/contexts/PreferencesContext";
+import { useLang } from "@/i18n/LanguageContext";
 
 import { cn } from "@/lib/utils";
 
@@ -21,27 +22,28 @@ export function AlgorithmBlock(
     variant?: "default" | "list",
     className?: string
   }) {
-  
+
   const [copied, setCopied] = useState(false);
   const [pinned, setPinned] = useState(false);
 
   const { updatePreference } = usePreferences();
+  const { t } = useLang();
 
   async function copy() {
     try {
       await navigator.clipboard.writeText(algorithm);
       setCopied(true);
-      toast.success("Algoritmo copiado");
+      toast.success(t.algCopied);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      toast.error("Não foi possível copiar");
+      toast.error(t.algCopyError);
     }
   };
 
   async function pin() {
     if (algKey && algId !== undefined) {
       setPinned(true);
-      toast.success("Algoritmo pinado");
+      toast.success(t.algPinned);
       setTimeout(() => setPinned(false), 1800);
       updatePreference(algKey, algId);
     }
@@ -73,7 +75,7 @@ export function AlgorithmBlock(
               e.stopPropagation();
               void pin();
             }}
-            aria-label="Pin algorithm"
+            aria-label={t.pinAlg}
             className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
           >
             {pinned ? <Check className="h-4 w-4" /> : <Pin className="h-4 w-4" />}
@@ -87,7 +89,7 @@ export function AlgorithmBlock(
             e.stopPropagation();
             void copy();
           }}
-          aria-label="Copiar algoritmo"
+          aria-label={t.copyAlg}
           className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
           >
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}

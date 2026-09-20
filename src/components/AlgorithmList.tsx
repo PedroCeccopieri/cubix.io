@@ -1,16 +1,18 @@
 import { AlgorithmBlock } from "./AlgorithmBlock"
 import { usePreferences } from "@/contexts/PreferencesContext"
+import { useLang } from "@/i18n/LanguageContext"
 
 export function AlgorithmList({ algs, itemKey }: { algs: string[]; itemKey: string }) {
 
   const { preferences } = usePreferences();
+  const { t } = useLang();
 
   const orderedAlgs = (preferences[itemKey] !== undefined ? [algs[preferences[itemKey]], ...algs.filter((_, i) => i !== preferences[itemKey])] : algs) as string[];
 
 
   return (
     <>
-      <h2 className="text-lg font-semibold">Algoritmos</h2>
+      <h2 className="text-lg font-semibold">{t.algorithms}</h2>
 
       <div className="mt-3 overflow-hidden rounded-xl border border-border" >
         {orderedAlgs.map((alg, i) => (
