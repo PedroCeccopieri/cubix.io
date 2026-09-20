@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { PageHeader } from "@/components/AppShell";
+import { useLang } from "@/i18n/LanguageContext";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
@@ -23,27 +24,22 @@ export const Route = createFileRoute("/sobre")({
   component: AboutPage,
 });
 
-const structure = [
-  ["Puzzle", "2x2, 3x3, Megaminx… cada puzzle é um catálogo independente."],
-  ["Método", "CFOP, LBL, Roux, Ortega — o caminho escolhido para resolver."],
-  ["Etapa", "Cross, F2L, OLL, PLL — os blocos do curso dentro do método."],
-  ["Caso", "Cada situação específica, com diagrama e explicação."],
-  ["Algoritmo", "A fórmula em notação padrão, pronta para copiar e treinar."],
-];
-
 function AboutPage() {
+  const { t } = useLang();
+  const a = t.about;
+
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-8 sm:py-14">
       <PageHeader
-        eyebrow="Sobre"
-        title="Um curso de cubo mágico, não uma lista de algoritmos"
-        description="O CubeLab foi feito para quem quer evoluir de forma estruturada: escolher um puzzle, seguir um método e dominar caso a caso."
+        eyebrow={a.eyebrow}
+        title={a.title}
+        description={a.description}
       />
 
       <section className="mt-12">
-        <h2 className="text-lg font-semibold">Como o conteúdo é organizado</h2>
+        <h2 className="text-lg font-semibold">{a.structureTitle}</h2>
         <ol className="mt-4 space-y-3">
-          {structure.map(([name, text], i) => (
+          {a.structure.map(([name, text], i) => (
             <li key={name} className="surface-card grid grid-cols-[auto_minmax(0,1fr)] gap-4 p-4">
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-muted font-mono text-xs">
                 {i + 1}
@@ -58,27 +54,24 @@ function AboutPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="text-lg font-semibold">Conteúdo atual</h2>
+        <h2 className="text-lg font-semibold">{a.currentTitle}</h2>
         <p className="mt-3 text-muted-foreground">
-          O curso de CFOP para o cubo 3x3 já está disponível com as etapas Cross, F2L, OLL e PLL,
-          incluindo os 21 casos de PLL completos. Os demais puzzles e métodos aparecem como
-          <span className="font-medium"> Em breve</span> e serão liberados com o mesmo formato.
+          {a.currentText}
+          <span className="font-medium">{a.comingSoonInline}</span>
+          {a.currentTextAfter}
         </p>
         <Link
           to="/puzzles/$puzzleId/$methodId"
           params={{ puzzleId: "3x3", methodId: "cfop" }}
           className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
         >
-          Começar pelo CFOP
+          {a.startCfop}
         </Link>
       </section>
 
       <section className="mt-12">
-        <h2 className="text-lg font-semibold">Progresso e privacidade</h2>
-        <p className="mt-3 text-muted-foreground">
-          Os casos marcados como aprendidos ficam salvos localmente no seu navegador. Não é preciso
-          criar conta para usar a plataforma.
-        </p>
+        <h2 className="text-lg font-semibold">{a.privacyTitle}</h2>
+        <p className="mt-3 text-muted-foreground">{a.privacyText}</p>
       </section>
     </div>
   );
