@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Circle, PlayCircle } from "lucide-
 import { AlgorithmList } from "@/components/AlgorithmList";
 
 import { useProgress } from "@/contexts/ProgressContext";
+import { useLang } from "@/i18n/LanguageContext";
 
 import { allCasesOf, getCase } from "@/data/utils";
 
@@ -18,12 +19,12 @@ export const Route = createFileRoute("/puzzles/$puzzleId/$methodId/$caseId")({
 
 function headContent(loaderData: any) {
   const title = loaderData
-    ? `${loaderData.name} — ${loaderData.methodName} | Cubix.io`
+    ? `${loaderData.name?.pt} — ${loaderData.methodName?.pt} | Cubix.io`
     : "Caso | Cubix.io";
   const description = loaderData
-    ? `Algoritmo ${loaderData.algorithm} — ${loaderData.execution}`
+    ? `Algoritmo ${loaderData.algorithm} — ${loaderData.execution?.pt ?? ""}`
     : "Caso de algoritmo do Cubix.io.";
-  
+
     return {
       meta: [
         { title },
@@ -54,6 +55,7 @@ function loaderFunction(params: any) {
 
 function CasePage() {
   const { puzzleId, methodId, caseId } = Route.useLoaderData();
+  const { t, tx } = useLang();
   const { puzzle, method, stage, item } = getCase(puzzleId, methodId, caseId);
   if (!puzzle || !method || !stage || !item) throw notFound();
 
@@ -73,7 +75,7 @@ function CasePage() {
         params={{ puzzleId: puzzle.id, methodId: method.id }}
         className="text-sm text-muted-foreground hover:text-foreground"
       >
-        ← {method.name} · {stage.name}
+        ← {tx(method.name)} · {tx(stage.name)}
       </Link>
 
       <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-8 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center">
@@ -82,10 +84,10 @@ function CasePage() {
         </div>
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            {stage.name} {item.group ? ` - ${item.group}` : ""}
+            {tx(stage.name)} {item.group ? ` - ${tx(item.group)}` : ""}
           </p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl"> {item.name} </h1>
-          <p className="mt-3 text-muted-foreground">{item.execution}</p>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl"> {tx(item.name)} </h1>
+          <p className="mt-3 text-muted-foreground">{tx(item.execution)}</p>
           <button
             onClick={() => toggle(key)}
             className={
@@ -95,7 +97,7 @@ function CasePage() {
             }
           >
             {learned ? <CheckCircle2 className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-            {learned ? "Caso aprendido" : "Marcar como aprendido"}
+            {learned ? t.caseLearned : t.markLearned}
           </button>
         </div>
       </div>
@@ -107,14 +109,14 @@ function CasePage() {
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {item.memoTip && (
           <section className="surface-card p-5">
-            <h2 className="text-lg font-semibold">Dicas para memorizar</h2>
-            <p className="mt-3 text-sm text-muted-foreground">{item.memoTip}</p>
+            <h2 className="text-lg font-semibold">{t.memoTips}</h2>
+            <p className="mt-3 text-sm text-muted-foreground">{tx(item.memoTip)}</p>
           </section>
         )}
         {item.execution && (
           <section className="surface-card p-5">
-            <h2 className="text-lg font-semibold">Dicas de execução</h2>
-            <p className="mt-3 text-sm text-muted-foreground">{item.execution}</p>
+            <h2 className="text-lg font-semibold">{t.execTips}</h2>
+            <p className="mt-3 text-sm text-muted-foreground">{tx(item.execution)}</p>
           </section>
         )}
       </div>
@@ -128,9 +130,9 @@ function CasePage() {
         >
           <PlayCircle className="h-6 w-6 shrink-0 text-primary" />
           <span className="min-w-0">
-            <span className="block font-semibold">Vídeo tutorial</span>
+            <span className="block font-semibold">{t.videoTutorial}</span>
             <span className="block truncate text-sm text-muted-foreground">
-              Assista à execução deste caso em vídeo
+              {t.watchVideo}
             </span>
           </span>
         </a>
@@ -145,8 +147,8 @@ function CasePage() {
           >
             <ArrowLeft className="h-4 w-4 shrink-0 text-muted-foreground" />
             <span className="min-w-0">
-              <span className="block text-xs text-muted-foreground">Anterior</span>
-              <span className="block truncate text-sm font-medium">{prev.name}</span>
+              <span className="block text-xs text-muted-foreground">{t.prev}</span>
+              <span className="block truncate text-sm font-medium">{tx(prev.name)}</span>
             </span>
           </Link>
         ) : (
@@ -159,8 +161,8 @@ function CasePage() {
             className="surface-card surface-card-hover flex min-w-0 items-center justify-end gap-3 p-4 text-right"
           >
             <span className="min-w-0">
-              <span className="block text-xs text-muted-foreground">Próximo</span>
-              <span className="block truncate text-sm font-medium">{next.name}</span>
+              <span className="block text-xs text-muted-foreground">{t.next}</span>
+              <span className="block truncate text-sm font-medium">{tx(next.name)}</span>
             </span>
             <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
           </Link>

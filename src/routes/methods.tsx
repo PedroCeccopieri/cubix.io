@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHeader } from "@/components/AppShell";
 import { MethodCard } from "@/components/MethodCard";
+import { useLang } from "@/i18n/LanguageContext";
 
 import { puzzlesList } from "@/data/puzzles";
 
@@ -24,19 +25,20 @@ function headContent() {
 }
 
 function MethodsPage() {
+  const { t, tx } = useLang();
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
       <PageHeader
-        eyebrow="Biblioteca"
-        title="Métodos"
-        description="Todos os caminhos de resolução da plataforma, organizados por puzzle."
+        eyebrow={t.libraryEyebrow}
+        title={t.nav.methods.label}
+        description={t.methodsPageDescription}
       />
 
       <div className="mt-10 space-y-10">
         {puzzlesList.map((puzzle) => (
           <section key={puzzle.id}>
-            <h2 className="text-lg font-semibold">{puzzle.name}</h2>
+            <h2 className="text-lg font-semibold">{tx(puzzle.name)}</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {puzzle.methods.map((method) => (
                 <MethodCard key={method.id} puzzle={puzzle} method={method} full={false} />

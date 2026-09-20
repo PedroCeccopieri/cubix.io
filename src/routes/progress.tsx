@@ -5,6 +5,7 @@ import { RotateCcw } from "lucide-react";
 import { PageHeader } from "@/components/AppShell";
 import { ProgressBar } from "@/components/ProgressBar";
 import { PuzzleProgress } from "@/components/PuzzleProgress";
+import { useLang } from "@/i18n/LanguageContext";
 
 import { useProgress } from "@/contexts/ProgressContext";
 
@@ -32,6 +33,7 @@ function headContent() {
 
 function ProgressPage() {
   const { countLearned, hydrated } = useProgress();
+  const { t } = useLang();
 
   const allKeys = puzzlesList.flatMap(puzzleKeys);
   const totalDone = countLearned(allKeys);
@@ -39,22 +41,22 @@ function ProgressPage() {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
       <PageHeader
-        eyebrow="Sua evolução"
-        title="Meu progresso"
-        description="Seu progresso fica salvo neste navegador, então você pode voltar quando quiser."
+        eyebrow={t.journeyEyebrow}
+        title={t.nav.progress.label}
+        description={t.progressPageDescription}
         action={resetAllAction()}
       />
 
       <div className="surface-card mt-8 p-6">
         <p className="text-4xl font-bold">{Math.round(pct(totalDone, allKeys.length))}%</p>
         <p className="mt-1 text-sm text-muted-foreground">
-          {hydrated ? `${totalDone} de ${allKeys.length} casos aprendidos na plataforma` : "Carregando…"}
+          {hydrated ? t.platformLearnedOf(totalDone, allKeys.length) : t.loading}
         </p>
         <ProgressBar className="mt-4" value={pct(totalDone, allKeys.length)} />
       </div>
 
       <div className="mt-12 space-y-10">
-        {puzzlesList.map((puzzle) => 
+        {puzzlesList.map((puzzle) =>
           <PuzzleProgress key={puzzle.id} puzzle={puzzle} />
         )}
       </div>
@@ -64,13 +66,14 @@ function ProgressPage() {
 
 function resetAllAction() {
   const { resetAll } = useProgress();
+  const { t } = useLang();
 
   return (
     <button
       onClick={resetAll}
       className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
     >
-      <RotateCcw className="h-4 w-4" /> Zerar progresso
+      <RotateCcw className="h-4 w-4" /> {t.resetProgress}
     </button>
   );
 }
