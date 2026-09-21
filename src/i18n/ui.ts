@@ -1,4 +1,4 @@
-export type Lang = "pt" | "en";
+import type { Lang } from "./languages";
 
 const pt = {
   nav: {
@@ -220,4 +220,9 @@ const en: UiDict = {
   },
 };
 
-export const ui: Record<Lang, UiDict> = { pt, en };
+/**
+ * Dicionários da interface. Para um novo idioma, registre-o em
+ * `languages.ts` e adicione aqui `es: { ... } satisfies UiDict`.
+ * Idiomas sem dicionário caem automaticamente no português.
+ */
+export const ui: Partial<Record<Lang, UiDict>> & { pt: UiDict } = { pt, en };
