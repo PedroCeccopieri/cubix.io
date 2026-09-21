@@ -58,9 +58,9 @@ export interface Puzzle {
 }
 
 export const difficultyLabel: Record<Difficulty, LocalizedText> = {
-  1: { pt: "Iniciante", en: "Beginner" },
-  2: { pt: "Intermediário", en: "Intermediate" },
-  3: { pt: "Avançado", en: "Advanced" },
-  4: { pt: "Expert", en: "Expert" },
-  5: { pt: "Mestre", en: "Master" }
+  1: { pt: "Iniciante", en: "Beginner", es: "Principiante" },
+  2: { pt: "Intermediário", en: "Intermediate", es: "Intermedio" },
+  3: { pt: "Avançado", en: "Advanced", es: "Avanzado" },
+  4: { pt: "Expert", en: "Expert", es: "Experto" },
+  5: { pt: "Mestre", en: "Master", es: "Maestro" }
 };
