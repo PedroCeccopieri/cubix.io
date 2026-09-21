@@ -34,24 +34,25 @@ function ThemeToggle() {
 }
 
 function LangToggle() {
-  const { lang, setLang, t } = useLang();
+  const { lang, setLang, languages, t } = useLang();
   return (
     <div
       role="group"
       aria-label={t.languageLabel}
-      className="flex shrink-0 items-center rounded-lg border border-border bg-card p-0.5"
+      className="flex shrink-0 flex-wrap items-center rounded-lg border border-border bg-card p-0.5"
     >
-      {(["pt", "en"] as const).map((l) => (
+      {languages.map((l) => (
         <button
-          key={l}
-          onClick={() => setLang(l)}
-          aria-pressed={lang === l}
+          key={l.code}
+          onClick={() => setLang(l.code)}
+          aria-pressed={lang === l.code}
+          title={l.name}
           className={cn(
             "rounded-md px-2 py-1 text-xs font-semibold uppercase transition-colors",
-            lang === l ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+            lang === l.code ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
           )}
         >
-          {l}
+          {l.label}
         </button>
       ))}
     </div>
