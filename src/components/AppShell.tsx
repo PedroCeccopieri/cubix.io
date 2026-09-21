@@ -5,6 +5,7 @@ import { useState, type ReactNode } from "react";
 import { useTheme } from "@/lib/theme";
 import { useLang } from "@/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 function Logo() {
   return (
@@ -36,26 +37,21 @@ function ThemeToggle() {
 function LangToggle() {
   const { lang, setLang, languages, t } = useLang();
   return (
-    <div
-      role="group"
-      aria-label={t.languageLabel}
-      className="flex shrink-0 flex-wrap items-center rounded-lg border border-border bg-card p-0.5"
-    >
-      {languages.map((l) => (
-        <button
-          key={l.code}
-          onClick={() => setLang(l.code)}
-          aria-pressed={lang === l.code}
-          title={l.name}
-          className={cn(
-            "rounded-md px-2 py-1 text-xs font-semibold uppercase transition-colors",
-            lang === l.code ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-          )}
-        >
-          {l.label}
-        </button>
-      ))}
-    </div>
+    <Select value={lang} onValueChange={(value) => setLang(value as typeof lang)}>
+      <SelectTrigger aria-label={t.languageLabel} title={t.languageLabel}>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {languages.map((language) => (
+          <SelectItem key={language.code} value={language.code}>
+            <span className="flex items-center gap-2">
+              <span className="w-5 text-xs font-bold uppercase text-primary">{language.label}</span>
+              <span className="normal-case">{language.name}</span>
+            </span>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
 
