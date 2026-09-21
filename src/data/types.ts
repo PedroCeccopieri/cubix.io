@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
 import { PuzzleDiagram } from "@/data/diagramTypes";
-import { DEFAULT_LANG, type Lang } from "@/i18n/languages";
+import type { DefaultLang, Lang } from "@/i18n/languages";
 
 export type Difficulty = 1 | 2 | 3 | 4 | 5;
 
@@ -14,7 +14,7 @@ export type Sticker = "y" | "w" | "r" | "o" | "b" | "g" | "x";
  */
 export type LocalizedText =
   | string
-  | ({ [DEFAULT_LANG]: string } & Partial<Record<Lang, string>>);
+  | (Record<DefaultLang, string> & Partial<Record<Lang, string>>);
 
 export interface CaseItem {
   id: string;

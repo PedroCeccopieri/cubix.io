@@ -2,17 +2,20 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 
 import type { LocalizedText } from "@/data/types";
 
+import { DEFAULT_LANG, htmlLangOf, isLang, languages, type Lang } from "./languages";
 import { ui, type UiDict } from "./ui";
 
-export type Lang = "pt" | "en";
+export type { Lang };
 
 const STORAGE_KEY = "cubix:lang";
 
 interface LanguageContextValue {
   lang: Lang;
   setLang: (lang: Lang) => void;
+  /** Idiomas disponíveis na plataforma. */
+  languages: typeof languages;
   t: UiDict;
-  /** Resolve um texto que pode estar em um ou dois idiomas. */
+  /** Resolve um texto localizado, com fallback para o idioma padrão. */
   tx: (value: LocalizedText | undefined) => string;
 }
 
@@ -27,27 +30,38 @@ export function useLang() {
 function detectLang(): Lang {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === "pt" || stored === "en") return stored;
+    if (isLang(stored)) return stored;
   } catch {
     // localStorage indisponível: segue para detecção pelo navegador
   }
-  const browser = typeof navigator !== "undefined" ? navigator.language : "pt";
-  return browser && browser.toLowerCase().startsWith("pt") ? "pt" : "en";
+  const browser = typeof navigator !== "undefined" ? navigator.language?.toLowerCase() : "";
+  const match = languages.find((l) => browser?.startsWith(l.code));
+  return match?.code ?? DEFAULT_LANG;
+}
+
+function dictFor(lang: Lang): UiDict {
+  return ui[lang] ?? ui[DEFAULT_LANG];
+}
+
+function resolve(value: LocalizedText | undefined, lang: Lang): string {
+  if (value == null) return "";
+  if (typeof value === "string") return value;
+  return value[lang] ?? value[DEFAULT_LANG] ?? Object.values(value)[0] ?? "";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  // Começa em pt (igual ao SSR) e troca depois da hidratação, evitando mismatch.
-  const [lang, setLangState] = useState<Lang>("pt");
+  // Começa no idioma padrão (igual ao SSR) e troca depois da hidratação.
+  const [lang, setLangState] = useState<Lang>(DEFAULT_LANG);
 
   useEffect(() => {
     const detected = detectLang();
     setLangState(detected);
-    document.documentElement.lang = detected === "pt" ? "pt-BR" : "en";
+    document.documentElement.lang = htmlLangOf(detected);
   }, []);
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);
-    document.documentElement.lang = next === "pt" ? "pt-BR" : "en";
+    document.documentElement.lang = htmlLangOf(next);
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
@@ -59,8 +73,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     () => ({
       lang,
       setLang,
-      t: ui[lang],
-      tx: (v) => (v == null ? "" : typeof v === "string" ? v : v[lang]),
+      languages,
+      t: dictFor(lang),
+      tx: (v) => resolve(v, lang),
     }),
     [lang, setLang]
   );

@@ -14,7 +14,9 @@ export const languages = [
 
 export type Lang = (typeof languages)[number]["code"];
 
-export const DEFAULT_LANG: Lang = "pt";
+/** Idioma padrão (sempre presente nos conteúdos e usado como fallback). */
+export type DefaultLang = "pt";
+export const DEFAULT_LANG: DefaultLang = "pt";
 
 export const langCodes = languages.map((l) => l.code) as readonly Lang[];
 
