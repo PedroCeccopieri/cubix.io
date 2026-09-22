@@ -6,16 +6,16 @@ import { useLang } from "@/i18n/LanguageContext";
 export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
-      { title: "Sobre o CubeLab" },
+      { title: "About Cubix.io" },
       {
         name: "description",
         content:
-          "O CubeLab organiza o aprendizado de cubo mágico em puzzles, métodos, etapas e casos, com algoritmos, diagramas e progresso salvo.",
+          "Cubix.io organizes speedcubing learning into puzzles, methods, stages and cases, with algorithms, diagrams and saved progress.",
       },
-      { property: "og:title", content: "Sobre o CubeLab" },
+      { property: "og:title", content: "About Cubix.io" },
       {
         property: "og:description",
-        content: "Como a plataforma organiza puzzles, métodos, etapas, casos e algoritmos.",
+        content: "How the platform organizes puzzles, methods, stages, cases and algorithms.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

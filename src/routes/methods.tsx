@@ -14,10 +14,10 @@ export const Route = createFileRoute("/methods")({
 function headContent() {
   return {
     meta: [
-      { title: "Todos os métodos — CubeLab" },
-      { name: "description", content: "CFOP, LBL, Roux, ZZ, Ortega, Yau e mais: compare métodos por puzzle e nível de dificuldade." },
-      { property: "og:title", content: "Todos os métodos — Cubix.io" },
-      { property: "og:description", content: "Compare métodos por puzzle, dificuldade e progresso." },
+      { title: "All methods — Cubix.io" },
+      { name: "description", content: "CFOP, LBL, Roux, ZZ, Ortega, Yau and more: compare methods by puzzle and difficulty." },
+      { property: "og:title", content: "All methods — Cubix.io" },
+      { property: "og:description", content: "Compare methods by puzzle, difficulty and progress." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }
     ]
