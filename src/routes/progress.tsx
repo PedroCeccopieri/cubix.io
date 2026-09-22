@@ -21,10 +21,10 @@ export const Route = createFileRoute("/progress")({
 
 function headContent() {
     return { meta: [
-      { title: "Meu progresso — Cubix.io" },
-      { name: "description", content: "Acompanhe quantos casos você já aprendeu em cada método, etapa e puzzle, com percentuais salvos no seu navegador." },
-      { property: "og:title", content: "Meu progresso — Cubix.io" },
-      { property: "og:description", content: "Casos aprendidos, progresso por etapa e por puzzle em um só lugar." },
+      { title: "My progress — Cubix.io" },
+      { name: "description", content: "Track the cases you have learned in every method, stage and puzzle, with progress saved in your browser." },
+      { property: "og:title", content: "My progress — Cubix.io" },
+      { property: "og:description", content: "Learned cases and progress by stage and puzzle in one place." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }
     ]

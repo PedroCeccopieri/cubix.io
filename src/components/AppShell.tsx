@@ -23,10 +23,11 @@ function Logo() {
 
 function ThemeToggle() {
   const { theme, toggle } = useTheme();
+  const { t } = useLang();
   return (
     <button
       onClick={toggle}
-      aria-label="Alternar tema"
+      aria-label={t.themeToggleLabel}
       className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
     >
       {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -115,7 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <ThemeToggle />
           <button
             onClick={() => setOpen((v) => !v)}
-            aria-label="Abrir menu"
+            aria-label={t.menuToggleLabel}
             className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-card"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}

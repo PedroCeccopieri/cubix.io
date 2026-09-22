@@ -15,14 +15,14 @@ export const Route = createFileRoute("/puzzles/$puzzleId/")({
 });
 
 function headContent(loaderData: any) {
-  const name = loaderData?.name?.pt ?? "Puzzle";
-  const description = loaderData?.description?.pt ?? "Métodos e algoritmos para resolver o puzzle.";
+  const name = loaderData?.name?.en ?? "Puzzle";
+  const description = loaderData?.description?.en ?? "Methods and algorithms for solving the puzzle.";
 
   return {
     meta: [
-      { title: `${name} — métodos e algoritmos | Cubix.io` },
+      { title: `${name} — methods and algorithms | Cubix.io` },
       { name: "description", content: description },
-      { property: "og:title", content: `${name} — métodos e algoritmos | Cubix.io` },
+      { property: "og:title", content: `${name} — methods and algorithms | Cubix.io` },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },

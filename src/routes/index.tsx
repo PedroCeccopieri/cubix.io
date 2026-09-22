@@ -17,10 +17,10 @@ export const Route = createFileRoute("/")({
 function headContent() {
   return {
     meta: [
-      { title: "Cubix" },
-      { name: "description", content: "Metodos de cubo magico disponiveis" },
+      { title: "Cubix.io — Learn to solve any puzzle" },
+      { name: "description", content: "Learn speedcubing methods, practice cases and master algorithms for your favorite puzzles." },
       { property: "og:title", content: "Cubix.io" },
-      { property: "og:description", content: "Aprenda métodos, pratique casos." },
+      { property: "og:description", content: "Learn methods, practice cases and track your progress." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ]

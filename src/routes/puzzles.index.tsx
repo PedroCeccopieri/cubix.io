@@ -14,10 +14,10 @@ export const Route = createFileRoute("/puzzles/")({
 function headContent() {
   return {
     meta: [
-      { title: "Puzzles disponíveis — CubeLab" },
-      { name: "description", content: "2x2, 3x3, 4x4, 5x5, 6x6, 7x7, Pyraminx, Skewb e Megaminx: escolha seu puzzle e comece a aprender os métodos." },
-      { property: "og:title", content: "Puzzles disponíveis — CubeLab" },
-      { property: "og:description", content: "Escolha entre nove puzzles e comece pelo método ideal para o seu nível." },
+      { title: "Available puzzles — Cubix.io" },
+      { name: "description", content: "Choose from 2x2, 3x3, 4x4, 5x5, 6x6, 7x7, Pyraminx, Skewb and Megaminx and start learning." },
+      { property: "og:title", content: "Available puzzles — Cubix.io" },
+      { property: "og:description", content: "Choose a puzzle and find the ideal method for your level." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }
     ]

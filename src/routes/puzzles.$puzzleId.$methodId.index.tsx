@@ -20,8 +20,8 @@ export const Route = createFileRoute("/puzzles/$puzzleId/$methodId/")({
 });
 
 function headContent(loaderData: any) {
-  const title = loaderData ? `${loaderData.methodName?.pt} — ${loaderData.puzzleName?.pt} | CubeLab` : "Método | CubeLab";
-  const description = loaderData?.description?.pt ?? "Curso completo com etapas, casos e algoritmos.";
+  const title = loaderData ? `${loaderData.methodName?.en} — ${loaderData.puzzleName?.en} | Cubix.io` : "Method | Cubix.io";
+  const description = loaderData?.description?.en ?? "Full course with stages, cases and algorithms.";
   return {
     meta: [
       { title },

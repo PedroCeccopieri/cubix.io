@@ -19,11 +19,11 @@ export const Route = createFileRoute("/puzzles/$puzzleId/$methodId/$caseId")({
 
 function headContent(loaderData: any) {
   const title = loaderData
-    ? `${loaderData.name?.pt} — ${loaderData.methodName?.pt} | Cubix.io`
-    : "Caso | Cubix.io";
+    ? `${loaderData.name?.en} — ${loaderData.methodName?.en} | Cubix.io`
+    : "Case | Cubix.io";
   const description = loaderData
-    ? `Algoritmo ${loaderData.algorithm} — ${loaderData.execution?.pt ?? ""}`
-    : "Caso de algoritmo do Cubix.io.";
+    ? `Algorithm ${loaderData.algorithm} — ${loaderData.execution?.en ?? ""}`
+    : "Algorithm case on Cubix.io.";
 
     return {
       meta: [

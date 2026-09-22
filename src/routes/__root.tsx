@@ -25,8 +25,8 @@ function headContent() {
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Cubix.io — Aprenda a resolver qualquer puzzle" },
-      { name: "description", content: "Plataforma de aprendizado de cubo mágico: puzzles, métodos, etapas, casos e algoritmos com progresso salvo." },
+      { title: "Cubix.io — Learn to solve any puzzle" },
+      { name: "description", content: "A speedcubing learning platform with puzzles, methods, stages, cases, algorithms and saved progress." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }
     ],
