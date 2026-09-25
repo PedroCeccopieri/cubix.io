@@ -31,8 +31,8 @@ export function MethodCard({ puzzle, method, full } : {puzzle: Puzzle, method : 
         <ProgressBar
             className="mt-5"
             value={pct(done, keys.length)}
-            label={t.progress}
-            hint={disabled ? t.comingSoon : t.casesOf(done, keys.length)}
+            label={t.common.progress}
+            hint={disabled ? t.common.comingSoon : t.common.casesOf(done, keys.length)}
         />
         {full && (
             <span
@@ -42,7 +42,7 @@ export function MethodCard({ puzzle, method, full } : {puzzle: Puzzle, method : 
                 : "mt-5 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"
             }
             >
-                {disabled ? (<> <Lock className="h-4 w-4" /> {t.comingSoon} </>) : (<> {t.startLearning} <ArrowRight className="h-4 w-4" /> </>)}
+                {disabled ? (<> <Lock className="h-4 w-4" /> {t.common.comingSoon} </>) : (<> {t.methodCard.startLearning} <ArrowRight className="h-4 w-4" /> </>)}
             </span>
         )}
         </>

@@ -49,7 +49,7 @@ function PuzzlePage() {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
       <Link to="/puzzles" className="text-sm text-muted-foreground hover:text-foreground">
-        {t.allPuzzlesBack}
+        {t.puzzleIdPag.allPuzzlesBack}
       </Link>
 
       <div className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-5">
@@ -62,14 +62,14 @@ function PuzzlePage() {
       <p className="mt-5 max-w-2xl text-muted-foreground"> {tx(puzzle.description)} </p>
 
       <div className="mt-12">
-        <PageHeader eyebrow={t.coursesEyebrow} title={t.availableMethods} />
+        <PageHeader eyebrow={t.puzzleIdPag.methodsEyebrow} title={t.puzzleIdPag.availableMethods} />
          <div className="mt-6 grid gap-5 sm:grid-cols-2">
           {puzzle.methods.map((method) => (<MethodCard key={method.id} puzzle={puzzle} method={method} full={true} />))}
         </div>
       </div>
 
       <div className="mt-16">
-        <h2 className="text-lg font-semibold">{t.otherPuzzles}</h2>
+        <h2 className="text-lg font-semibold">{t.puzzleIdPag.otherPuzzles}</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {others.map((p) => (
             <Link

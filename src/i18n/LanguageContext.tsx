@@ -12,10 +12,8 @@ const STORAGE_KEY = "cubix:lang";
 interface LanguageContextValue {
   lang: Lang;
   setLang: (lang: Lang) => void;
-  /** Idiomas disponíveis na plataforma. */
   languages: typeof languages;
   t: UiDict;
-  /** Resolve um texto localizado, com fallback para o idioma padrão. */
   tx: (value: LocalizedText | undefined) => string;
 }
 
@@ -50,7 +48,6 @@ function resolve(value: LocalizedText | undefined, lang: Lang): string {
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  // Começa no idioma padrão (igual ao SSR) e troca depois da hidratação.
   const [lang, setLangState] = useState<Lang>(DEFAULT_LANG);
 
   useEffect(() => {

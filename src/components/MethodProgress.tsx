@@ -11,7 +11,7 @@ import { methodKeys, pct } from "@/lib/stats";
 
 export function MethodProgress ( { puzzle, method, cards }: { puzzle: Puzzle, method: Method, cards: boolean } ) {
   const { countLearned } = useProgress();
-  const { t, tx } = useLang();
+  const { tx } = useLang();
 
   const mKeys = methodKeys(puzzle.id, method);
   const mDone = countLearned(mKeys);

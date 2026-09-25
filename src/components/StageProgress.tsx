@@ -10,7 +10,7 @@ import { stageKeys, pct } from "@/lib/stats";
 
 export function StageProgress( { puzzleId, methodId, stage } : { puzzleId: string, methodId: string, stage: Stage } ) {
   const { countLearned } = useProgress();
-  const { t, tx } = useLang();
+  const { tx } = useLang();
 
   const sKeys = stageKeys(puzzleId, methodId, stage);
   const sDone = countLearned(sKeys);

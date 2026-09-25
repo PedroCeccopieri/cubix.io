@@ -38,7 +38,6 @@ function headContent(loaderData: any) {
 function loaderFunction(params: any) {
   const { puzzle, method } = getMethod(params.puzzleId, params.methodId);
   if (!puzzle || !method) throw notFound();
-  // Retorna apenas dados serializáveis; os objetos completos são resolvidos no componente.
   return {
     puzzleId: puzzle.id,
     methodId: method.id,
@@ -84,7 +83,7 @@ function MethodPage() {
         <div className="surface-card w-full shrink-0 p-4 sm:w-56">
           <p className="text-3xl font-bold">{Math.round(pct(done, keys.length))}%</p>
           <p className="mt-1 text-xs text-muted-foreground">
-            {t.learnedOf(done, keys.length)}
+            {t.methodIdPag.learnedOf(done, keys.length)}
           </p>
           <ProgressBar className="mt-3" value={pct(done, keys.length)} />
         </div>

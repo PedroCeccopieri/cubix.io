@@ -33,17 +33,17 @@ export function AlgorithmBlock(
     try {
       await navigator.clipboard.writeText(algorithm);
       setCopied(true);
-      toast.success(t.algCopied);
+      toast.success(t.toaster.algCopied);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      toast.error(t.algCopyError);
+      toast.error(t.toaster.algCopyError);
     }
   };
 
   async function pin() {
     if (algKey && algId !== undefined) {
       setPinned(true);
-      toast.success(t.algPinned);
+      toast.success(t.toaster.algPinned);
       setTimeout(() => setPinned(false), 1800);
       updatePreference(algKey, algId);
     }
@@ -75,7 +75,7 @@ export function AlgorithmBlock(
               e.stopPropagation();
               void pin();
             }}
-            aria-label={t.pinAlg}
+            aria-label={t.algorithmBlock.pinAlg}
             className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
           >
             {pinned ? <Check className="h-4 w-4" /> : <Pin className="h-4 w-4" />}
@@ -89,7 +89,7 @@ export function AlgorithmBlock(
             e.stopPropagation();
             void copy();
           }}
-          aria-label={t.copyAlg}
+          aria-label={t.algorithmBlock.copyAlg}
           className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
           >
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}

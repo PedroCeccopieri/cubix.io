@@ -30,9 +30,9 @@ function MethodsPage() {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
       <PageHeader
-        eyebrow={t.libraryEyebrow}
-        title={t.nav.methods.label}
-        description={t.methodsPageDescription}
+        eyebrow={t.methodsPag.libraryEyebrow}
+        title={t.nav.methods}
+        description={t.methodsPag.methodsPageDescription}
       />
 
       <div className="mt-10 space-y-10">

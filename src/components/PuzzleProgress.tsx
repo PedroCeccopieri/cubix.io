@@ -28,14 +28,14 @@ export function PuzzleProgress({ puzzle }: { puzzle: Puzzle }) {
             params={{ puzzleId: puzzle.id }}
             className="shrink-0 text-sm text-primary"
           >
-          {t.open}
+          {t.puzzleProgress.open}
           </Link>
       </div>
       <ProgressBar
         className="mt-3"
         value={pct(pDone, pKeys.length)}
-        hint={t.casesOf(pDone, pKeys.length)}
-        label={t.puzzleProgress}
+        hint={t.common.casesOf(pDone, pKeys.length)}
+        label={t.puzzleProgress.progress}
       />
 
       {puzzle.methods.filter((m) => m.stages.length > 0).map((method) =>

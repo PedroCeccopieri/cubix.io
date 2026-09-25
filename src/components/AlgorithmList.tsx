@@ -12,7 +12,7 @@ export function AlgorithmList({ algs, itemKey }: { algs: string[]; itemKey: stri
 
   return (
     <>
-      <h2 className="text-lg font-semibold">{t.algorithms}</h2>
+      <h2 className="text-lg font-semibold">{t.algorithmList.algorithms}</h2>
 
       <div className="mt-3 overflow-hidden rounded-xl border border-border" >
         {orderedAlgs.map((alg, i) => (

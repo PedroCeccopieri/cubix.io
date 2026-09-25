@@ -52,14 +52,14 @@ export function CaseCard({ puzzle, method, item } : {puzzle: Puzzle, method : Me
             }
             >
             {learned ? <CheckCircle2 className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-            {learned ? t.learned : t.markLearned}
+            {learned ? t.common.caseLearned : t.common.markLearned}
             </button>
             <Link
             to="/puzzles/$puzzleId/$methodId/$caseId"
             params={{ puzzleId: puzzle.id, methodId: method.id, caseId: item.id }}
             className="text-xs font-semibold text-primary"
             >
-            {t.studyCase}
+            {t.caseCard.studyCase}
             </Link>
         </div>
         </div>

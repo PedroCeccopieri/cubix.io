@@ -27,7 +27,7 @@ function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      aria-label={t.themeToggleLabel}
+      aria-label={t.nav.themeToggleLabel}
       className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:text-foreground"
     >
       {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -39,7 +39,7 @@ function LangToggle() {
   const { lang, setLang, languages, t } = useLang();
   return (
     <Select value={lang} onValueChange={(value) => setLang(value as typeof lang)}>
-      <SelectTrigger aria-label={t.languageLabel} title={t.languageLabel}>
+      <SelectTrigger aria-label={t.nav.languageLabel} title={t.nav.languageLabel}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -59,11 +59,11 @@ function LangToggle() {
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useLang();
   const nav = [
-    { to: "/", label: t.nav.home.label, icon: Home, exact: true },
-    { to: "/puzzles", label: t.nav.puzzles.label, icon: Boxes, exact: false },
-    { to: "/methods", label: t.nav.methods.label, icon: Layers, exact: false },
-    { to: "/progress", label: t.nav.progress.label, icon: TrendingUp, exact: false },
-    { to: "/sobre", label: t.nav.about.label, icon: Info, exact: false },
+    { to: "/", label: t.nav.home, icon: Home, exact: true },
+    { to: "/puzzles", label: t.nav.puzzles, icon: Boxes, exact: false },
+    { to: "/methods", label: t.nav.methods, icon: Layers, exact: false },
+    { to: "/progress", label: t.nav.myProgress, icon: TrendingUp, exact: false },
+    { to: "/sobre", label: t.nav.about, icon: Info, exact: false },
   ] as const;
 
   return (
@@ -99,11 +99,11 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-3 py-2.5">
-            <span className="truncate text-xs text-muted-foreground">{t.languageLabel}</span>
+            <span className="truncate text-xs text-muted-foreground">{t.nav.languageLabel}</span>
             <LangToggle />
           </div>
           <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-3 py-2.5">
-            <span className="truncate text-xs text-muted-foreground">{t.themeLabel}</span>
+            <span className="truncate text-xs text-muted-foreground">{t.nav.themeLabel}</span>
             <ThemeToggle />
           </div>
         </div>
@@ -116,7 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <ThemeToggle />
           <button
             onClick={() => setOpen((v) => !v)}
-            aria-label={t.menuToggleLabel}
+            aria-label={t.nav.menuToggleLabel}
             className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-card"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -133,11 +133,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-background/95 backdrop-blur lg:hidden">
         {[
-          { to: "/", label: t.nav.home.label, short: t.nav.home.short, icon: Home, exact: true },
-          { to: "/puzzles", label: t.nav.puzzles.label, short: t.nav.puzzles.short, icon: Boxes, exact: false },
-          { to: "/methods", label: t.nav.methods.label, short: t.nav.methods.short, icon: Layers, exact: false },
-          { to: "/progress", label: t.nav.progress.label, short: t.nav.progress.short, icon: TrendingUp, exact: false },
-          { to: "/sobre", label: t.nav.about.label, short: t.nav.about.short, icon: Info, exact: false },
+          { to: "/", label: t.nav.home, short: t.nav.home, icon: Home, exact: true },
+          { to: "/puzzles", label: t.nav.puzzles, short: t.nav.puzzles, icon: Boxes, exact: false },
+          { to: "/methods", label: t.nav.methods, short: t.nav.methods, icon: Layers, exact: false },
+          { to: "/progress", label: t.nav.myProgress, short: t.nav.myProgress, icon: TrendingUp, exact: false },
+          { to: "/sobre", label: t.nav.about, short: t.nav.about, icon: Info, exact: false },
         ].map((item) => (
           <Link
             key={item.to}

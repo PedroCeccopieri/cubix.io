@@ -97,7 +97,7 @@ function CasePage() {
             }
           >
             {learned ? <CheckCircle2 className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-            {learned ? t.caseLearned : t.markLearned}
+            {learned ? t.common.caseLearned : t.common.markLearned}
           </button>
         </div>
       </div>
@@ -109,13 +109,13 @@ function CasePage() {
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {item.memoTip && (
           <section className="surface-card p-5">
-            <h2 className="text-lg font-semibold">{t.memoTips}</h2>
+            <h2 className="text-lg font-semibold">{t.caseIdPag.memoTips}</h2>
             <p className="mt-3 text-sm text-muted-foreground">{tx(item.memoTip)}</p>
           </section>
         )}
         {item.execution && (
           <section className="surface-card p-5">
-            <h2 className="text-lg font-semibold">{t.execTips}</h2>
+            <h2 className="text-lg font-semibold">{t.caseIdPag.execTips}</h2>
             <p className="mt-3 text-sm text-muted-foreground">{tx(item.execution)}</p>
           </section>
         )}
@@ -130,9 +130,9 @@ function CasePage() {
         >
           <PlayCircle className="h-6 w-6 shrink-0 text-primary" />
           <span className="min-w-0">
-            <span className="block font-semibold">{t.videoTutorial}</span>
+            <span className="block font-semibold">{t.caseIdPag.videoTutorial}</span>
             <span className="block truncate text-sm text-muted-foreground">
-              {t.watchVideo}
+              {t.caseIdPag.watchVideo}
             </span>
           </span>
         </a>
@@ -147,7 +147,7 @@ function CasePage() {
           >
             <ArrowLeft className="h-4 w-4 shrink-0 text-muted-foreground" />
             <span className="min-w-0">
-              <span className="block text-xs text-muted-foreground">{t.prev}</span>
+              <span className="block text-xs text-muted-foreground">{t.caseIdPag.prev}</span>
               <span className="block truncate text-sm font-medium">{tx(prev.name)}</span>
             </span>
           </Link>
@@ -161,7 +161,7 @@ function CasePage() {
             className="surface-card surface-card-hover flex min-w-0 items-center justify-end gap-3 p-4 text-right"
           >
             <span className="min-w-0">
-              <span className="block text-xs text-muted-foreground">{t.next}</span>
+              <span className="block text-xs text-muted-foreground">{t.caseIdPag.next}</span>
               <span className="block truncate text-sm font-medium">{tx(next.name)}</span>
             </span>
             <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />

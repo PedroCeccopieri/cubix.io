@@ -41,16 +41,16 @@ function ProgressPage() {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
       <PageHeader
-        eyebrow={t.journeyEyebrow}
-        title={t.nav.progress.label}
-        description={t.progressPageDescription}
+        eyebrow={t.progressPag.journeyEyebrow}
+        title={t.nav.myProgress}
+        description={t.progressPag.progressPageDescription}
         action={resetAllAction()}
       />
 
       <div className="surface-card mt-8 p-6">
         <p className="text-4xl font-bold">{Math.round(pct(totalDone, allKeys.length))}%</p>
         <p className="mt-1 text-sm text-muted-foreground">
-          {hydrated ? t.platformLearnedOf(totalDone, allKeys.length) : t.loading}
+          {hydrated ? t.progressPag.platformLearnedOf(totalDone, allKeys.length) : t.progressPag.loading}
         </p>
         <ProgressBar className="mt-4" value={pct(totalDone, allKeys.length)} />
       </div>
@@ -73,7 +73,7 @@ function resetAllAction() {
       onClick={resetAll}
       className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
     >
-      <RotateCcw className="h-4 w-4" /> {t.resetProgress}
+      <RotateCcw className="h-4 w-4" /> {t.progressPag.resetProgress}
     </button>
   );
 }

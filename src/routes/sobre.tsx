@@ -26,20 +26,19 @@ export const Route = createFileRoute("/sobre")({
 
 function AboutPage() {
   const { t } = useLang();
-  const a = t.about;
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-8 sm:py-14">
       <PageHeader
-        eyebrow={a.eyebrow}
-        title={a.title}
-        description={a.description}
+        eyebrow={t.about.eyebrow}
+        title={t.about.title}
+        description={t.about.description}
       />
 
       <section className="mt-12">
-        <h2 className="text-lg font-semibold">{a.structureTitle}</h2>
+        <h2 className="text-lg font-semibold">{t.about.structureTitle}</h2>
         <ol className="mt-4 space-y-3">
-          {a.structure.map(([name, text], i) => (
+          {t.about.structure.map(([name, text], i) => (
             <li key={name} className="surface-card grid grid-cols-[auto_minmax(0,1fr)] gap-4 p-4">
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-muted font-mono text-xs">
                 {i + 1}
@@ -54,24 +53,24 @@ function AboutPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="text-lg font-semibold">{a.currentTitle}</h2>
+        <h2 className="text-lg font-semibold">{t.about.currentTitle}</h2>
         <p className="mt-3 text-muted-foreground">
-          {a.currentText}
-          <span className="font-medium">{a.comingSoonInline}</span>
-          {a.currentTextAfter}
+          {t.about.currentText}
+          <span className="font-medium">{t.about.comingSoonInline}</span>
+          {t.about.currentTextAfter}
         </p>
         <Link
           to="/puzzles/$puzzleId/$methodId"
           params={{ puzzleId: "3x3", methodId: "cfop" }}
           className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
         >
-          {a.startCfop}
+          {t.about.startCfop}
         </Link>
       </section>
 
       <section className="mt-12">
-        <h2 className="text-lg font-semibold">{a.privacyTitle}</h2>
-        <p className="mt-3 text-muted-foreground">{a.privacyText}</p>
+        <h2 className="text-lg font-semibold">{t.about.privacyTitle}</h2>
+        <p className="mt-3 text-muted-foreground">{t.about.privacyText}</p>
       </section>
     </div>
   );
