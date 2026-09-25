@@ -8,15 +8,15 @@
  *    objetos LocalizedText. O que faltar cai automaticamente no idioma padrão.
  */
 export const languages = [
-  // { code: "en", label: "EN", name: "English", htmlLang: "en" },
-  // { code: "es", label: "ES", name: "Español", htmlLang: "es" },
+  { code: "en", label: "EN", name: "English", htmlLang: "en" },
+  { code: "es", label: "ES", name: "Español", htmlLang: "es" },
   { code: "pt", label: "PT", name: "Português", htmlLang: "pt-BR" },
 ] as const;
 
 export type Lang = (typeof languages)[number]["code"];
 
-export type DefaultLang = "pt";
-export const DEFAULT_LANG: DefaultLang = "pt";
+export type DefaultLang = "en";
+export const DEFAULT_LANG: DefaultLang = "en";
 
 export const langCodes = languages.map((l) => l.code) as readonly Lang[];
 
