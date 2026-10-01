@@ -29,8 +29,8 @@ function detectLang(): Lang {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (isLang(stored)) return stored;
-  } catch {
-    // localStorage indisponível: segue para detecção pelo navegador
+  } catch (err) {
+    console.log(err)
   }
   const browser = typeof navigator !== "undefined" ? navigator.language?.toLowerCase() : "";
   const match = languages.find((l) => browser?.startsWith(l.code));
@@ -61,8 +61,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = htmlLangOf(next);
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      // sem localStorage: a escolha vale só para esta sessão
+    } catch (err) {
+      console.log(err)
     }
   }, []);
 

@@ -1,9 +1,122 @@
 import type { Lang } from "./languages";
 
 
-export type UiDict = typeof pt;
+export type UiDict = typeof en;
 
-const pt = {
+const en = {
+  nav: {
+    home: "Home",
+    puzzles: "Puzzles",
+    methods: "Methods",
+    myProgress: "My progress",
+    about: "About",
+    themeLabel: "Interface theme",
+    menuToggleLabel: "Open menu",
+    themeToggleLabel: "Toggle theme",
+    languageLabel: "Language",
+  },
+  home: {
+    badge: "Complete speedcubing methods",
+    headline: "Learn to solve any puzzle",
+    subtitle: "Learn methods, practice cases and master the algorithms of your favorite puzzles.",
+    catalogEyebrow: "Catalog",
+    catalogTitle: "Choose your puzzle",
+    catalogDescription: "Each puzzle has complete methods, steps and cases with ready-to-practice algorithms.",
+    howEyebrow: "How it works",
+    howTitle: "Four steps to a solved cube",
+    steps: [
+      { title: "Choose your puzzle", text: "Choose from the available puzzles." },
+      { title: "Choose a method", text: "Learn with the method that best fits your goal." },
+      { title: "Learn the cases", text: "Study each case individually with diagram, algorithm and explanation." },
+      { title: "Practice and track", text: "Mark the cases you've learned and watch your progress in each step." },
+    ],
+  },
+  about: {
+    eyebrow: "About",
+    title: "A cube course, not a list of algorithms",
+    description: "CubeLab is made for anyone who wants to improve in a structured way: pick a puzzle, follow a method and master it case by case.",
+    structureTitle: "How the content is organized",
+    structure: [
+      ["Puzzle", "2x2, 3x3, Megaminx… each puzzle is an independent catalog."],
+      ["Method", "CFOP, LBL, Roux, Ortega — the chosen path to solve."],
+      ["Step", "Cross, F2L, OLL, PLL — the course blocks within the method."],
+      ["Case", "Each specific situation, with diagram and explanation."],
+      ["Algorithm", "The formula in standard notation, ready to copy and practice."],
+    ],
+    currentTitle: "Current content",
+    currentText: "The CFOP course for the 3x3 cube is already available with the Cross, F2L, OLL and PLL steps, including all 21 complete PLL cases. The other puzzles and methods appear as",
+    comingSoonInline: " Coming soon",
+    currentTextAfter: " and will be released in the same format.",
+    startCfop: "Start with CFOP",
+    privacyTitle: "Progress and privacy",
+    privacyText: "Cases marked as learned are saved locally in your browser. No account is needed to use the platform.",
+  },
+  methodsPag: {
+    libraryEyebrow: "Library",
+    methodsPageDescription: "All the solving paths on the platform, organized by puzzle.",
+  },
+  progressPag: {
+    journeyEyebrow: "Your journey",
+    progressPageDescription: "Your progress is saved in this browser, so you can come back anytime.",
+    resetProgress: "Reset progress",
+    loading: "Loading…",
+    platformLearnedOf: (done: number, total: number) => `${done} of ${total} cases learned on the platform`,
+  },
+  puzzlesPag: {
+    puzzlesPageDescription: "Pick a puzzle to see the available methods, course steps and every case with its algorithms.",
+  },
+  puzzleIdPag: {
+    allPuzzlesBack: "← All puzzles",
+    methodsEyebrow: "Methods",
+    availableMethods: "Available methods",
+    otherPuzzles: "Other puzzles",
+  },
+  methodIdPag: {
+    learnedOf: (done: number, total: number) => `${done} of ${total} cases learned`,
+  },
+  caseIdPag: {
+    memoTips: "Memory tips",
+    execTips: "Execution tips",
+    videoTutorial: "Video tutorial",
+    watchVideo: "Watch this case being executed",
+    prev: "Previous",
+    next: "Next",
+  },
+  algorithmBlock: {
+    pinAlg: "Pin algorithm",
+    copyAlg: "Copy algorithm",
+  },
+  algorithmList: { algorithms: "Algorithms" },
+  caseCard: { studyCase: "Study case →" },
+  difficultyLabel: {
+    difficultyOf: (n: number) => `Difficulty ${n} of 5`,
+  },
+  methodCard: { startLearning: "Start learning" },
+  puzzleCard: {
+    available: "Available",
+    yourProgress: "Your progress",
+    methodCount: (n: number): string => (n === 1 ? "method" : "methods"),
+    view: "View",
+  },
+  puzzleProgress: {
+    open: "Open →",
+    progress: "Puzzle progress",
+  },
+  common: {
+    progress: "Progress",
+    caseLearned: "Case learned",
+    markLearned: "Mark as learned",
+    comingSoon: "Coming soon",
+    casesOf: (done: number, total: number) => `${done}/${total} cases`,
+  },
+  toaster: {
+    algCopied: "Algorithm copied",
+    algCopyError: "Couldn't copy",
+    algPinned: "Algorithm pinned",
+  },
+};
+
+const pt: UiDict = {
   nav: {
     home: "Início",
     puzzles: "Puzzles", 
@@ -120,119 +233,6 @@ const pt = {
     algCopied: "Algoritmo copiado",
     algCopyError: "Não foi possível copiar",
     algPinned: "Algoritmo pinado",
-  },
-};
-
-const en: UiDict = {
-  nav: {
-    home: "Home",
-    puzzles: "Puzzles",
-    methods: "Methods",
-    myProgress: "My progress",
-    about: "About",
-    themeLabel: "Interface theme",
-    menuToggleLabel: "Open menu",
-    themeToggleLabel: "Toggle theme",
-    languageLabel: "Language",
-  },
-  home: {
-    badge: "Complete speedcubing methods",
-    headline: "Learn to solve any puzzle",
-    subtitle: "Learn methods, practice cases and master the algorithms of your favorite puzzles.",
-    catalogEyebrow: "Catalog",
-    catalogTitle: "Choose your puzzle",
-    catalogDescription: "Each puzzle has complete methods, steps and cases with ready-to-practice algorithms.",
-    howEyebrow: "How it works",
-    howTitle: "Four steps to a solved cube",
-    steps: [
-      { title: "Choose your puzzle", text: "Choose from the available puzzles." },
-      { title: "Choose a method", text: "Learn with the method that best fits your goal." },
-      { title: "Learn the cases", text: "Study each case individually with diagram, algorithm and explanation." },
-      { title: "Practice and track", text: "Mark the cases you've learned and watch your progress in each step." },
-    ],
-  },
-  about: {
-    eyebrow: "About",
-    title: "A cube course, not a list of algorithms",
-    description: "CubeLab is made for anyone who wants to improve in a structured way: pick a puzzle, follow a method and master it case by case.",
-    structureTitle: "How the content is organized",
-    structure: [
-      ["Puzzle", "2x2, 3x3, Megaminx… each puzzle is an independent catalog."],
-      ["Method", "CFOP, LBL, Roux, Ortega — the chosen path to solve."],
-      ["Step", "Cross, F2L, OLL, PLL — the course blocks within the method."],
-      ["Case", "Each specific situation, with diagram and explanation."],
-      ["Algorithm", "The formula in standard notation, ready to copy and practice."],
-    ],
-    currentTitle: "Current content",
-    currentText: "The CFOP course for the 3x3 cube is already available with the Cross, F2L, OLL and PLL steps, including all 21 complete PLL cases. The other puzzles and methods appear as",
-    comingSoonInline: " Coming soon",
-    currentTextAfter: " and will be released in the same format.",
-    startCfop: "Start with CFOP",
-    privacyTitle: "Progress and privacy",
-    privacyText: "Cases marked as learned are saved locally in your browser. No account is needed to use the platform.",
-  },
-  methodsPag: {
-    libraryEyebrow: "Library",
-    methodsPageDescription: "All the solving paths on the platform, organized by puzzle.",
-  },
-  progressPag: {
-    journeyEyebrow: "Your journey",
-    progressPageDescription: "Your progress is saved in this browser, so you can come back anytime.",
-    resetProgress: "Reset progress",
-    loading: "Loading…",
-    platformLearnedOf: (done: number, total: number) => `${done} of ${total} cases learned on the platform`,
-  },
-  puzzlesPag: {
-    puzzlesPageDescription: "Pick a puzzle to see the available methods, course steps and every case with its algorithms.",
-  },
-  puzzleIdPag: {
-    allPuzzlesBack: "← All puzzles",
-    methodsEyebrow: "Methods",
-    availableMethods: "Available methods",
-    otherPuzzles: "Other puzzles",
-  },
-  methodIdPag: {
-    learnedOf: (done: number, total: number) => `${done} of ${total} cases learned`,
-  },
-  caseIdPag: {
-    memoTips: "Memory tips",
-    execTips: "Execution tips",
-    videoTutorial: "Video tutorial",
-    watchVideo: "Watch this case being executed",
-    prev: "Previous",
-    next: "Next",
-  },
-  algorithmBlock: {
-    pinAlg: "Pin algorithm",
-    copyAlg: "Copy algorithm",
-  },
-  algorithmList: { algorithms: "Algorithms" },
-  caseCard: { studyCase: "Study case →" },
-  difficultyLabel: {
-    difficultyOf: (n: number) => `Difficulty ${n} of 5`,
-  },
-  methodCard: { startLearning: "Start learning" },
-  puzzleCard: {
-    available: "Available",
-    yourProgress: "Your progress",
-    methodCount: (n: number): string => (n === 1 ? "method" : "methods"),
-    view: "View",
-  },
-  puzzleProgress: {
-    open: "Open →",
-    progress: "Puzzle progress",
-  },
-  common: {
-    progress: "Progress",
-    caseLearned: "Case learned",
-    markLearned: "Mark as learned",
-    comingSoon: "Coming soon",
-    casesOf: (done: number, total: number) => `${done}/${total} cases`,
-  },
-  toaster: {
-    algCopied: "Algorithm copied",
-    algCopyError: "Couldn't copy",
-    algPinned: "Algorithm pinned",
   },
 };
 

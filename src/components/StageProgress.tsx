@@ -1,6 +1,7 @@
 import { ProgressBar } from "@/components/ProgressBar";
 
 import { useProgress } from "@/contexts/ProgressContext";
+
 import { useLang } from "@/i18n/LanguageContext";
 
 import { Stage } from "@/data/types";

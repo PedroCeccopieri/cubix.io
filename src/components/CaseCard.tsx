@@ -11,8 +11,6 @@ import { AlgorithmBlock } from "@/components/AlgorithmBlock";
 import { caseKey } from "@/lib/stats";
 
 
-
-
 export function CaseCard({ puzzle, method, item } : {puzzle: Puzzle, method : Method, item : CaseItem}) {
     const { isLearned, toggle } = useProgress();
     const { preferences } = usePreferences();

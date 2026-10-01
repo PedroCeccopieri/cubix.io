@@ -1,12 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-import { PuzzleGlyph } from "./diagrams/NxNTopDiagram";
-import { ProgressBar } from "./ProgressBar";
-import type { Puzzle } from "@/data/types";
+import { PuzzleGlyph } from "@/components/diagrams/NxNTopDiagram";
+import { ProgressBar } from "@/components/ProgressBar";
+
 import { useProgress } from "@/contexts/ProgressContext";
+
+import type { Puzzle } from "@/data/types";
+
 import { useLang } from "@/i18n/LanguageContext";
+
 import { pct, puzzleKeys } from "@/lib/stats";
+
 
 export function PuzzleCard({ puzzle }: { puzzle: Puzzle }) {
   const { countLearned } = useProgress();

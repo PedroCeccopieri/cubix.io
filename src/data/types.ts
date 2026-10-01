@@ -7,7 +7,6 @@ export type Difficulty = 1 | 2 | 3 | 4 | 5;
 
 export type Sticker = "y" | "w" | "r" | "o" | "b" | "g" | "x";
 
-
 export type LocalizedText = string | (Record<DefaultLang, string> & Partial<Record<Lang, string>>);
 
 export interface CaseItem {
@@ -52,14 +51,9 @@ export interface Puzzle {
 }
 
 export const difficultyLabel: Record<Difficulty, LocalizedText> = {
-  // 1: { pt: "Iniciante", en: "Beginner", es: "Principiante" },
-  // 2: { pt: "Intermediário", en: "Intermediate", es: "Intermedio" },
-  // 3: { pt: "Avançado", en: "Advanced", es: "Avanzado" },
-  // 4: { pt: "Expert", en: "Expert", es: "Experto" },
-  // 5: { pt: "Mestre", en: "Master", es: "Maestro" }
-  1: { pt: "Iniciante"},
-  2: { pt: "Intermediário"},
-  3: { pt: "Avançado"},
-  4: { pt: "Expert"},
-  5: { pt: "Mestre"}
+  1: { pt: "Iniciante", en: "Beginner", es: "Principiante" },
+  2: { pt: "Intermediário", en: "Intermediate", es: "Intermedio" },
+  3: { pt: "Avançado", en: "Advanced", es: "Avanzado" },
+  4: { pt: "Expert", en: "Expert", es: "Experto" },
+  5: { pt: "Mestre", en: "Master", es: "Maestro" }
 };

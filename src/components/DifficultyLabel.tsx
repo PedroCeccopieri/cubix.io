@@ -1,6 +1,7 @@
 import { useLang } from "@/i18n/LanguageContext";
+import { type Difficulty } from "@/data/types";
 
-export function DifficultyLabel({ difficulty }: { difficulty: 1 | 2 | 3 | 4 | 5 }) {
+export function DifficultyLabel({ difficulty }: { difficulty: Difficulty }) {
   const { t } = useLang();
 
   return (

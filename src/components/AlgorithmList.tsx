@@ -2,6 +2,7 @@ import { AlgorithmBlock } from "./AlgorithmBlock"
 import { usePreferences } from "@/contexts/PreferencesContext"
 import { useLang } from "@/i18n/LanguageContext"
 
+
 export function AlgorithmList({ algs, itemKey }: { algs: string[]; itemKey: string }) {
 
   const { preferences } = usePreferences();

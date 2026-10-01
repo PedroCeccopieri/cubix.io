@@ -4,6 +4,7 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { MethodProgress } from "@/components/MethodProgress";
 
 import { useProgress } from "@/contexts/ProgressContext";
+
 import { useLang } from "@/i18n/LanguageContext";
 
 import { Puzzle } from "@/data/types";
