@@ -1,20 +1,23 @@
-import type { Method, Puzzle, Stage } from "@/data/types";
+import type { Method, Puzzle, Submethod } from "@/data/types";
 
 
-export function caseKey(puzzleId: string, methodId: string, caseId: string) {
-  return `${puzzleId}/${methodId}/${caseId}`;
+/** Progress is keyed by submethod (not method), so methods sharing a submethod share progress. */
+export function caseKey(puzzleId: string, submethodId: string, caseId: string) {
+  return `${puzzleId}/${submethodId}/${caseId}`;
 }
 
-export function stageKeys(puzzleId: string, methodId: string, stage: Stage) {
-  return stage.cases.map((c) => caseKey(puzzleId, methodId, c.id));
+export function submethodKeys(puzzleId: string, submethod: Submethod) {
+  return submethod.cases.map((c) => caseKey(puzzleId, submethod.id, c.id));
 }
 
 export function methodKeys(puzzleId: string, method: Method) {
-  return method.stages.flatMap((s) => stageKeys(puzzleId, method.id, s));
+  const keys = method.submethods.flatMap((s) => submethodKeys(puzzleId, s));
+  return Array.from(new Set(keys));
 }
 
 export function puzzleKeys(puzzle: Puzzle) {
-  return puzzle.methods.flatMap((m) => methodKeys(puzzle.id, m));
+  const keys = puzzle.methods.flatMap((m) => methodKeys(puzzle.id, m));
+  return Array.from(new Set(keys));
 }
 
 export function pct(done: number, total: number) {

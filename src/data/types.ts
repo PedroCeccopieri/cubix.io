@@ -21,8 +21,14 @@ export interface CaseItem {
   videoUrl?: string;
 }
 
-export interface Stage {
+/**
+ * Submethod: a self-contained block of cases (F2L, OLL, PLL...).
+ * It belongs to a puzzle, NOT to a single method, so several methods
+ * can reuse the exact same submethod and share its progress.
+ */
+export interface Submethod {
   id: string;
+  puzzleId: string;
   name: LocalizedText;
   description: LocalizedText;
   cases: CaseItem[];
@@ -35,7 +41,7 @@ export interface Method {
   description: LocalizedText;
   longDescription?: LocalizedText;
   difficulty: Difficulty;
-  stages: Stage[];
+  submethods: Submethod[];
   comingSoon?: boolean;
 }
 
