@@ -1,9 +1,9 @@
 import { Method } from "@/data/types";
 
-import { cfopStages } from "./methods/cfop";
+import { cfopSubmethods } from "./methods/cfop";
 
 export function soonMethod(id: string, name: Method["name"], description: Method["description"], difficulty: Method["difficulty"]): Method {
-  return { id, name, description, difficulty, stages: [], comingSoon: true };
+  return { id, name, description, difficulty, submethods: [], comingSoon: true };
 }
 
 export const cfop: Method = {
@@ -21,7 +21,7 @@ export const cfop: Method = {
     // es: "CFOP divide la resolución en cuatro etapas: la cruz en la cara inferior, las dos primeras capas resueltas por parejas, la orientación de la última capa y, por último, la permutación. Es el camino natural para quien quiere bajar de 20 segundos.",
   },
   difficulty: 2,
-  stages: cfopStages,
+  submethods: cfopSubmethods,
 };
 
 export const lbl: Method = {
@@ -40,7 +40,7 @@ export const lbl: Method = {
     // es: "El método por capas resuelve el cubo en siete pasos intuitivos con muy pocos algoritmos que memorizar. Es el punto de partida ideal antes de pasar a CFOP.",
   },
   difficulty: 1,
-  stages: [],
+  submethods: [],
   comingSoon: true,
 };
 
@@ -53,7 +53,7 @@ export const roux: Method = {
     // es: "Basado en bloques y movimientos M, con pocos algoritmos y un número reducido de movimientos.",
   },
   difficulty: 3,
-  stages: [],
+  submethods: [],
   comingSoon: true,
 };
 
@@ -66,6 +66,6 @@ export const zz: Method = {
     // es: "Orienta todas las aristas desde el principio (EOLine) y elimina las rotaciones durante F2L.",
   },
   difficulty: 3,
-  stages: [],
+  submethods: [],
   comingSoon: true,
 };

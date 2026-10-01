@@ -16,7 +16,6 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as PuzzlesIndexRouteImport } from './routes/puzzles.index'
 import { Route as PuzzlesPuzzleIdIndexRouteImport } from './routes/puzzles.$puzzleId.index'
 import { Route as PuzzlesPuzzleIdMethodIdIndexRouteImport } from './routes/puzzles.$puzzleId.$methodId.index'
-import { Route as PuzzlesPuzzleIdMethodIdCaseIdRouteImport } from './routes/puzzles.$puzzleId.$methodId.$caseId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,12 +53,6 @@ const PuzzlesPuzzleIdMethodIdIndexRoute =
     path: '/puzzles/$puzzleId/$methodId/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const PuzzlesPuzzleIdMethodIdCaseIdRoute =
-  PuzzlesPuzzleIdMethodIdCaseIdRouteImport.update({
-    id: '/puzzles/$puzzleId/$methodId/$caseId',
-    path: '/puzzles/$puzzleId/$methodId/$caseId',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,7 +61,6 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/puzzles/': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId/': typeof PuzzlesPuzzleIdIndexRoute
-  '/puzzles/$puzzleId/$methodId/$caseId': typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
   '/puzzles/$puzzleId/$methodId/': typeof PuzzlesPuzzleIdMethodIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -78,7 +70,6 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/puzzles': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId': typeof PuzzlesPuzzleIdIndexRoute
-  '/puzzles/$puzzleId/$methodId/$caseId': typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
   '/puzzles/$puzzleId/$methodId': typeof PuzzlesPuzzleIdMethodIdIndexRoute
 }
 export interface FileRoutesById {
@@ -89,7 +80,6 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/puzzles/': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId/': typeof PuzzlesPuzzleIdIndexRoute
-  '/puzzles/$puzzleId/$methodId/$caseId': typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
   '/puzzles/$puzzleId/$methodId/': typeof PuzzlesPuzzleIdMethodIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -101,7 +91,6 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/puzzles/'
     | '/puzzles/$puzzleId/'
-    | '/puzzles/$puzzleId/$methodId/$caseId'
     | '/puzzles/$puzzleId/$methodId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -111,7 +100,6 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/puzzles'
     | '/puzzles/$puzzleId'
-    | '/puzzles/$puzzleId/$methodId/$caseId'
     | '/puzzles/$puzzleId/$methodId'
   id:
     | '__root__'
@@ -121,7 +109,6 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/puzzles/'
     | '/puzzles/$puzzleId/'
-    | '/puzzles/$puzzleId/$methodId/$caseId'
     | '/puzzles/$puzzleId/$methodId/'
   fileRoutesById: FileRoutesById
 }
@@ -132,7 +119,6 @@ export interface RootRouteChildren {
   SobreRoute: typeof SobreRoute
   PuzzlesIndexRoute: typeof PuzzlesIndexRoute
   PuzzlesPuzzleIdIndexRoute: typeof PuzzlesPuzzleIdIndexRoute
-  PuzzlesPuzzleIdMethodIdCaseIdRoute: typeof PuzzlesPuzzleIdMethodIdCaseIdRoute
   PuzzlesPuzzleIdMethodIdIndexRoute: typeof PuzzlesPuzzleIdMethodIdIndexRoute
 }
 
@@ -187,13 +173,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PuzzlesPuzzleIdMethodIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/puzzles/$puzzleId/$methodId/$caseId': {
-      id: '/puzzles/$puzzleId/$methodId/$caseId'
-      path: '/puzzles/$puzzleId/$methodId/$caseId'
-      fullPath: '/puzzles/$puzzleId/$methodId/$caseId'
-      preLoaderRoute: typeof PuzzlesPuzzleIdMethodIdCaseIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -204,7 +183,6 @@ const rootRouteChildren: RootRouteChildren = {
   SobreRoute: SobreRoute,
   PuzzlesIndexRoute: PuzzlesIndexRoute,
   PuzzlesPuzzleIdIndexRoute: PuzzlesPuzzleIdIndexRoute,
-  PuzzlesPuzzleIdMethodIdCaseIdRoute: PuzzlesPuzzleIdMethodIdCaseIdRoute,
   PuzzlesPuzzleIdMethodIdIndexRoute: PuzzlesPuzzleIdMethodIdIndexRoute,
 }
 export const routeTree = rootRouteImport
