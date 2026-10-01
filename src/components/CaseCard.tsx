@@ -5,21 +5,23 @@ import { useProgress } from "@/contexts/ProgressContext";
 import { usePreferences } from "@/contexts/PreferencesContext";
 import { useLang } from "@/i18n/LanguageContext";
 
-import { Puzzle, Method, CaseItem } from "@/data/types";
+import { Puzzle, Submethod, CaseItem } from "@/data/types";
 import { AlgorithmBlock } from "@/components/AlgorithmBlock";
 
 import { caseKey } from "@/lib/stats";
 
 
-export function CaseCard({ puzzle, method, item } : {puzzle: Puzzle, method : Method, item : CaseItem}) {
+export function CaseCard({ puzzle, submethod, item } : {puzzle: Puzzle, submethod : Submethod, item : CaseItem}) {
     const { isLearned, toggle } = useProgress();
     const { preferences } = usePreferences();
     const { t, tx } = useLang();
 
-    const key = caseKey(puzzle.id, method.id, item.id);
+    const key = caseKey(puzzle.id, submethod.id, item.id);
     const learned = isLearned(key);
 
     const preferenceAlgorithm = (preferences[key] ? item.algorithms[preferences[key]] : item.algorithms[0]) as string;
+
+    const linkParams = { puzzleId: puzzle.id, submethodId: submethod.id, caseId: item.id };
 
     return (
         <div key={`casecard-${item.id}`} className="surface-card surface-card-hover flex flex-col gap-4 p-4">
@@ -27,8 +29,8 @@ export function CaseCard({ puzzle, method, item } : {puzzle: Puzzle, method : Me
             {item.getDiagram(item.diagram, 92, "shrink-0")}
             <div className="min-w-0">
             <Link
-                to="/puzzles/$puzzleId/$methodId/$caseId"
-                params={{ puzzleId: puzzle.id, methodId: method.id, caseId: item.id }}
+                to="/puzzles/$puzzleId/submethods/$submethodId/$caseId"
+                params={linkParams}
                 className="block truncate font-semibold hover:text-primary"
             >
                 {tx(item.name)}
@@ -53,8 +55,8 @@ export function CaseCard({ puzzle, method, item } : {puzzle: Puzzle, method : Me
             {learned ? t.common.caseLearned : t.common.markLearned}
             </button>
             <Link
-            to="/puzzles/$puzzleId/$methodId/$caseId"
-            params={{ puzzleId: puzzle.id, methodId: method.id, caseId: item.id }}
+            to="/puzzles/$puzzleId/submethods/$submethodId/$caseId"
+            params={linkParams}
             className="text-xs font-semibold text-primary"
             >
             {t.caseCard.studyCase}
