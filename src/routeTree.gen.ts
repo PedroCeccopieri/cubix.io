@@ -16,6 +16,8 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as PuzzlesIndexRouteImport } from './routes/puzzles.index'
 import { Route as PuzzlesPuzzleIdIndexRouteImport } from './routes/puzzles.$puzzleId.index'
 import { Route as PuzzlesPuzzleIdMethodIdIndexRouteImport } from './routes/puzzles.$puzzleId.$methodId.index'
+import { Route as PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRouteImport } from './routes/puzzles.$puzzleId.submethods.$submethodId.index'
+import { Route as PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRouteImport } from './routes/puzzles.$puzzleId.submethods.$submethodId.$caseId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -53,6 +55,18 @@ const PuzzlesPuzzleIdMethodIdIndexRoute =
     path: '/puzzles/$puzzleId/$methodId/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute =
+  PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRouteImport.update({
+    id: '/puzzles/$puzzleId/submethods/$submethodId/',
+    path: '/puzzles/$puzzleId/submethods/$submethodId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute =
+  PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRouteImport.update({
+    id: '/puzzles/$puzzleId/submethods/$submethodId/$caseId',
+    path: '/puzzles/$puzzleId/submethods/$submethodId/$caseId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -62,6 +76,8 @@ export interface FileRoutesByFullPath {
   '/puzzles/': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId/': typeof PuzzlesPuzzleIdIndexRoute
   '/puzzles/$puzzleId/$methodId/': typeof PuzzlesPuzzleIdMethodIdIndexRoute
+  '/puzzles/$puzzleId/submethods/$submethodId/$caseId': typeof PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute
+  '/puzzles/$puzzleId/submethods/$submethodId/': typeof PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -71,6 +87,8 @@ export interface FileRoutesByTo {
   '/puzzles': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId': typeof PuzzlesPuzzleIdIndexRoute
   '/puzzles/$puzzleId/$methodId': typeof PuzzlesPuzzleIdMethodIdIndexRoute
+  '/puzzles/$puzzleId/submethods/$submethodId/$caseId': typeof PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute
+  '/puzzles/$puzzleId/submethods/$submethodId': typeof PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -81,6 +99,8 @@ export interface FileRoutesById {
   '/puzzles/': typeof PuzzlesIndexRoute
   '/puzzles/$puzzleId/': typeof PuzzlesPuzzleIdIndexRoute
   '/puzzles/$puzzleId/$methodId/': typeof PuzzlesPuzzleIdMethodIdIndexRoute
+  '/puzzles/$puzzleId/submethods/$submethodId/$caseId': typeof PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute
+  '/puzzles/$puzzleId/submethods/$submethodId/': typeof PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -92,6 +112,8 @@ export interface FileRouteTypes {
     | '/puzzles/'
     | '/puzzles/$puzzleId/'
     | '/puzzles/$puzzleId/$methodId/'
+    | '/puzzles/$puzzleId/submethods/$submethodId/$caseId'
+    | '/puzzles/$puzzleId/submethods/$submethodId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -101,6 +123,8 @@ export interface FileRouteTypes {
     | '/puzzles'
     | '/puzzles/$puzzleId'
     | '/puzzles/$puzzleId/$methodId'
+    | '/puzzles/$puzzleId/submethods/$submethodId/$caseId'
+    | '/puzzles/$puzzleId/submethods/$submethodId'
   id:
     | '__root__'
     | '/'
@@ -110,6 +134,8 @@ export interface FileRouteTypes {
     | '/puzzles/'
     | '/puzzles/$puzzleId/'
     | '/puzzles/$puzzleId/$methodId/'
+    | '/puzzles/$puzzleId/submethods/$submethodId/$caseId'
+    | '/puzzles/$puzzleId/submethods/$submethodId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -120,6 +146,8 @@ export interface RootRouteChildren {
   PuzzlesIndexRoute: typeof PuzzlesIndexRoute
   PuzzlesPuzzleIdIndexRoute: typeof PuzzlesPuzzleIdIndexRoute
   PuzzlesPuzzleIdMethodIdIndexRoute: typeof PuzzlesPuzzleIdMethodIdIndexRoute
+  PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute: typeof PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute
+  PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute: typeof PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -173,6 +201,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PuzzlesPuzzleIdMethodIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/puzzles/$puzzleId/submethods/$submethodId/': {
+      id: '/puzzles/$puzzleId/submethods/$submethodId/'
+      path: '/puzzles/$puzzleId/submethods/$submethodId'
+      fullPath: '/puzzles/$puzzleId/submethods/$submethodId/'
+      preLoaderRoute: typeof PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/puzzles/$puzzleId/submethods/$submethodId/$caseId': {
+      id: '/puzzles/$puzzleId/submethods/$submethodId/$caseId'
+      path: '/puzzles/$puzzleId/submethods/$submethodId/$caseId'
+      fullPath: '/puzzles/$puzzleId/submethods/$submethodId/$caseId'
+      preLoaderRoute: typeof PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -184,6 +226,10 @@ const rootRouteChildren: RootRouteChildren = {
   PuzzlesIndexRoute: PuzzlesIndexRoute,
   PuzzlesPuzzleIdIndexRoute: PuzzlesPuzzleIdIndexRoute,
   PuzzlesPuzzleIdMethodIdIndexRoute: PuzzlesPuzzleIdMethodIdIndexRoute,
+  PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute:
+    PuzzlesPuzzleIdSubmethodsSubmethodIdCaseIdRoute,
+  PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute:
+    PuzzlesPuzzleIdSubmethodsSubmethodIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
