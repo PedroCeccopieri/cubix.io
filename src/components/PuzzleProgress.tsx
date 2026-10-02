@@ -39,7 +39,7 @@ export function PuzzleProgress({ puzzle }: { puzzle: Puzzle }) {
         label={t.puzzleProgress.progress}
       />
 
-      {puzzle.methods.filter((m) => m.stages.length > 0).map((method) =>
+      {puzzle.methods.filter((m) => m.submethods.length > 0).map((method) =>
         <MethodProgress
             key={method.id}
             puzzle={puzzle}

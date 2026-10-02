@@ -1,6 +1,6 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
-import { CaseCard } from "@/components/CaseCard";
+import { SubmethodCard } from "@/components/SubmethodCard";
 import { DifficultyLabel } from "@/components/DifficultyLabel";
 import { MethodProgress } from "@/components/MethodProgress";
 import { ProgressBar } from "@/components/ProgressBar";
@@ -96,20 +96,15 @@ function MethodPage() {
         cards={true}
       />
 
-      <div className="mt-14 space-y-14">
-        {method.stages.map((stage) => (
-          <section key={stage.id} id={stage.id}>
-            <div className="grid grid-cols-[minmax(0,1fr)] gap-2">
-              <h2 className="text-2xl font-bold">{tx(stage.name)}</h2>
-              <p className="max-w-2xl text-sm text-muted-foreground">{tx(stage.description)}</p>
-            </div>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {stage.cases.map((item) => (<CaseCard key={`item-${item.id}`} puzzle={puzzle} method={method} item={item}/>))}
-            </div>
-          </section>
-        ))}
-      </div>
+      <section className="mt-14">
+        <h2 className="text-2xl font-bold">{t.methodIdPag.submethodsTitle}</h2>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{t.methodIdPag.submethodsDescription}</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {method.submethods.map((submethod) => (
+            <SubmethodCard key={`submethod-${submethod.id}`} puzzle={puzzle} submethod={submethod} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
