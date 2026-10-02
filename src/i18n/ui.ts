@@ -73,6 +73,13 @@ const en = {
   },
   methodIdPag: {
     learnedOf: (done: number, total: number) => `${done} of ${total} cases learned`,
+    submethodsTitle: "Submethods",
+    submethodsDescription: "Each submethod groups its own cases. Open one to study and practice them.",
+  },
+  submethodPag: {
+    eyebrow: "Submethod",
+    usedBy: "Used by:",
+    viewCases: "View cases",
   },
   caseIdPag: {
     memoTips: "Memory tips",
@@ -187,6 +194,13 @@ const pt: UiDict = {
   },
   methodIdPag: {
     learnedOf: (done: number, total: number) => `${done} de ${total} casos aprendidos`,
+    submethodsTitle: "Submétodos",
+    submethodsDescription: "Cada submétodo reúne seus próprios casos. Abra um para estudar e praticar.",
+  },
+  submethodPag: {
+    eyebrow: "Submétodo",
+    usedBy: "Usado por:",
+    viewCases: "Ver casos",
   },
   caseIdPag: {
     memoTips: "Dicas para memorizar",
@@ -306,6 +320,13 @@ const es: UiDict = {
   },
   methodIdPag: {
     learnedOf: (done: number, total: number) => `${done} de ${total} casos aprendidos`,
+    submethodsTitle: "Submétodos",
+    submethodsDescription: "Cada submétodo agrupa sus propios casos. Abre uno para estudiarlos y practicarlos.",
+  },
+  submethodPag: {
+    eyebrow: "Submétodo",
+    usedBy: "Usado por:",
+    viewCases: "Ver casos",
   },
   caseIdPag: {
     memoTips: "Consejos para memorizar",
