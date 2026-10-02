@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Submethods (F2L, OLL, PLL…) live in src/data/submethods.ts per puzzle, not inside a method; methods reference them and progress keys use puzzle/submethod/case — so methods sharing a submethod share pages and progress.
