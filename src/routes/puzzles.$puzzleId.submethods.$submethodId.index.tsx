@@ -11,34 +11,38 @@ import { getSubmethod, methodsUsingSubmethod } from "@/data/utils";
 import { submethodKeys, pct } from "@/lib/stats";
 
 export const Route = createFileRoute("/puzzles/$puzzleId/submethods/$submethodId/")({
-  loader: ({ params }) => {
-    const { puzzle, submethod } = getSubmethod(params.puzzleId, params.submethodId);
-    if (!puzzle || !submethod) throw notFound();
-    return {
-      puzzleId: puzzle.id,
-      submethodId: submethod.id,
-      title: `${typeof submethod.name === "string" ? submethod.name : submethod.name.en ?? submethod.name.pt}`,
-      puzzleName: typeof puzzle.name === "string" ? puzzle.name : puzzle.name.en ?? puzzle.name.pt,
-      description: typeof submethod.description === "string" ? submethod.description : submethod.description.en ?? submethod.description.pt,
-    };
-  },
-  head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.title} cases — ${loaderData.puzzleName} | Cubix.io` : "Submethod | Cubix.io";
-    const description = loaderData?.description ?? "All cases and algorithms of this submethod.";
-    return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary_large_image" },
-        ...(loaderData ? [] : [{ name: "robots", content: "noindex" }]),
-      ],
-    };
-  },
+  loader: ({ params }) => loaderFunction(params),
+  head: ({ loaderData }) => headContent(loaderData),
   component: SubmethodPage,
 });
+
+function headContent(loaderData: any) {
+  const title = loaderData ? `${loaderData.title} cases — ${loaderData.puzzleName} | Cubix.io` : "Submethod | Cubix.io";
+  const description = loaderData?.description ?? "All cases and algorithms of this submethod.";
+  return {
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
+      ...(loaderData ? [] : [{ name: "robots", content: "noindex" }]),
+    ],
+  };
+}
+
+function loaderFunction(params: any) {
+  const { puzzle, submethod } = getSubmethod(params.puzzleId, params.submethodId);
+  if (!puzzle || !submethod) throw notFound();
+  return {
+    puzzleId: puzzle.id,
+    submethodId: submethod.id,
+    title: `${typeof submethod.name === "string" ? submethod.name : submethod.name.en ?? submethod.name.pt}`,
+    puzzleName: typeof puzzle.name === "string" ? puzzle.name : puzzle.name.en ?? puzzle.name.pt,
+    description: typeof submethod.description === "string" ? submethod.description : submethod.description.en ?? submethod.description.pt,
+  };
+}
 
 function SubmethodPage() {
   const { puzzleId, submethodId } = Route.useLoaderData();

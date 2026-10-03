@@ -38,7 +38,7 @@ export function CaseCard({ puzzle, submethod, item } : {puzzle: Puzzle, submetho
             {item.group && (
                 <p className="mt-1 truncate text-xs text-muted-foreground">{tx(item.group)}</p>
             )}
-            <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{tx(item.execution)}</p>
+            <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{tx(item.description)}</p>
             </div>
         </div>
         <AlgorithmBlock algorithm={preferenceAlgorithm} />

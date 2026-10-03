@@ -13,6 +13,7 @@ export interface CaseItem {
   id: string;
   name: LocalizedText;
   group?: LocalizedText;
+  description?: LocalizedText;
   algorithms: string[];
   diagram: PuzzleDiagram;
   getDiagram: (diagram: PuzzleDiagram, size: number, classname?: string) => (ReactElement);
@@ -21,15 +22,12 @@ export interface CaseItem {
   videoUrl?: string;
 }
 
-/**
- * Submethod: a self-contained block of cases (F2L, OLL, PLL...).
- * It belongs to a puzzle, NOT to a single method, so several methods
- * can reuse the exact same submethod and share its progress.
- */
 export interface Submethod {
   id: string;
   puzzleId: string;
   name: LocalizedText;
+  diagram: PuzzleDiagram;
+  getDiagram: (diagram: PuzzleDiagram, size: number, classname?: string) => (ReactElement);
   description: LocalizedText;
   cases: CaseItem[];
 }

@@ -17,38 +17,40 @@ function plain(text?: LocalizedText) {
 }
 
 export const Route = createFileRoute("/puzzles/$puzzleId/submethods/$submethodId/$caseId")({
-  loader: ({ params }) => {
-    const { puzzle, submethod, item } = getCase(params.puzzleId, params.submethodId, params.caseId);
-    if (!puzzle || !submethod || !item) throw notFound();
-    return {
-      puzzleId: puzzle.id,
-      submethodId: submethod.id,
-      caseId: item.id,
-      name: plain(item.name),
-      submethodName: plain(submethod.name),
-      algorithm: item.algorithms[0] ?? "",
-      execution: plain(item.execution),
-    };
-  },
-  head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.name} — ${loaderData.submethodName} | Cubix.io` : "Case | Cubix.io";
-    const description = (loaderData
-      ? `Algorithm ${loaderData.algorithm} — ${loaderData.execution}`
-      : "Algorithm case on Cubix.io.").slice(0, 155);
-    return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary_large_image" },
-        ...(loaderData ? [] : [{ name: "robots", content: "noindex" }]),
-      ],
-    };
-  },
+  loader: ({ params }) => loaderFunction(params),
+  head: ({ loaderData }) => headContent(loaderData),
   component: CasePage,
 });
+
+function headContent(loaderData: any) {
+  const title = loaderData ? `${loaderData.name} — ${loaderData.submethodName} | Cubix.io` : "Case | Cubix.io";
+  const description = (loaderData ? `Algorithm ${loaderData.algorithm} — ${loaderData.execution}` : "Algorithm case on Cubix.io.").slice(0, 155);
+  return {
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
+      ...(loaderData ? [] : [{ name: "robots", content: "noindex" }]),
+    ]
+  };
+}
+
+function loaderFunction(params: any) {
+  const { puzzle, submethod, item } = getCase(params.puzzleId, params.submethodId, params.caseId);
+  if (!puzzle || !submethod || !item) throw notFound();
+  return {
+    puzzleId: puzzle.id,
+    submethodId: submethod.id,
+    caseId: item.id,
+    name: plain(item.name),
+    submethodName: plain(submethod.name),
+    algorithm: item.algorithms[0] ?? "",
+    execution: plain(item.execution),
+  };
+}
 
 function CasePage() {
   const { puzzleId, submethodId, caseId } = Route.useLoaderData();
@@ -83,7 +85,7 @@ function CasePage() {
             {tx(submethod.name)} {item.group ? ` - ${tx(item.group)}` : ""}
           </p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">{tx(item.name)}</h1>
-          <p className="mt-3 text-muted-foreground">{tx(item.execution)}</p>
+          <p className="mt-3 text-muted-foreground">{tx(item.description)}</p>
           <button
             onClick={() => toggle(key)}
             className={

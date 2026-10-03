@@ -23,7 +23,6 @@ export function getCase(puzzleId: string, submethodId: string, caseId: string) {
   return { puzzle, submethod, item };
 }
 
-/** Methods of the puzzle that reuse this submethod. */
 export function methodsUsingSubmethod(puzzleId: string, submethodId: string) {
   const puzzle = getPuzzle(puzzleId);
   return (puzzle?.methods ?? []).filter((m) => m.submethods.some((s) => s.id === submethodId));
@@ -37,11 +36,4 @@ export function allCasesOf(method: Method) {
   return method.submethods.flatMap((s) => s.cases.map((c) => ({ submethod: s, item: c })));
 }
 
-export const totalCasesCount = puzzlesList.reduce(
-  (acc, p) =>
-    acc +
-    new Set(
-      p.methods.flatMap((m) => m.submethods.flatMap((s) => s.cases.map((c) => `${s.id}/${c.id}`)))
-    ).size,
-  0
-);
+export const totalCasesCount = puzzlesList.reduce((acc, p) => acc + new Set(p.methods.flatMap((m) => m.submethods.flatMap((s) => s.cases.map((c) => `${s.id}/${c.id}`)))).size, 0);

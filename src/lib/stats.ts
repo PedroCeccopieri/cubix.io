@@ -1,7 +1,6 @@
 import type { Method, Puzzle, Submethod } from "@/data/types";
 
 
-/** Progress is keyed by submethod (not method), so methods sharing a submethod share progress. */
 export function caseKey(puzzleId: string, submethodId: string, caseId: string) {
   return `${puzzleId}/${submethodId}/${caseId}`;
 }
