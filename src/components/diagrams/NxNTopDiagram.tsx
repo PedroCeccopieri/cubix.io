@@ -132,6 +132,9 @@ export function NxNTopDiagram (
         <marker id="cube-arrow" markerWidth="5" markerHeight="5" refX="3.6" refY="2" orient="auto">
           <path d="M0,0 L4,2 L0,4 z" fill="oklch(0.2 0 0 / 1)" />
         </marker>
+        <marker id="cube-arrow-start" markerWidth="5" markerHeight="5" refX="3.6" refY="2" orient="auto-start-reverse">
+          <path d="M0,0 L4,2 L0,4 z" fill="oklch(0.2 0 0 / 1)" />
+        </marker>
       </defs>
 
       {diagram.arrows?.map((a, i) => {
@@ -147,7 +150,7 @@ export function NxNTopDiagram (
             stroke="oklch(0.2 0 0 / 1)"
             strokeWidth={2}
             markerEnd="url(#cube-arrow)"
-            {...(a.both ? { markerStart: "url(#cube-arrow)" } : {})}
+            {...(a.both ? { markerStart: "url(#cube-arrow-start)" } : {})}
           />
         );
       })}
