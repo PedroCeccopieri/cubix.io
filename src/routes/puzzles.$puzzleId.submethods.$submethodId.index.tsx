@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
 import { CaseCard } from "@/components/CaseCard";
@@ -8,7 +9,7 @@ import { useLang } from "@/i18n/LanguageContext";
 
 import { getSubmethod, methodsUsingSubmethod } from "@/data/utils";
 
-import { submethodKeys, pct } from "@/lib/stats";
+import { submethodKeys, pct, caseKey } from "@/lib/stats";
 
 export const Route = createFileRoute("/puzzles/$puzzleId/submethods/$submethodId/")({
   loader: ({ params }) => loaderFunction(params),
@@ -47,12 +48,18 @@ function loaderFunction(params: any) {
 function SubmethodPage() {
   const { puzzleId, submethodId } = Route.useLoaderData();
   const { t, tx } = useLang();
-  const { countLearned } = useProgress();
+  const { countLearned, isLearned } = useProgress();
+  const [onlyUnlearned, setOnlyUnlearned] = useState(false);
+  const [group, setGroup] = useState("");
   const { puzzle, submethod } = getSubmethod(puzzleId, submethodId);
   if (!puzzle || !submethod) throw notFound();
 
   const keys = submethodKeys(puzzle.id, submethod);
   const done = countLearned(keys);
+  const groups = Array.from(new Set(submethod.cases.map((c) => (c.group ? tx(c.group) : "")).filter(Boolean)));
+  const visible = submethod.cases.filter(
+    (c) => (!onlyUnlearned || !isLearned(caseKey(puzzle.id, submethod.id, c.id))) && (!group || (c.group && tx(c.group) === group)),
+  );
   const usedBy = methodsUsingSubmethod(puzzle.id, submethod.id);
 
   return (
@@ -95,8 +102,27 @@ function SubmethodPage() {
         </div>
       </div>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {submethod.cases.map((item) => (
+      <div className="mt-10 flex flex-wrap items-center gap-3">
+        <label className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm">
+          <input type="checkbox" checked={onlyUnlearned} onChange={(e) => setOnlyUnlearned(e.target.checked)} />
+          {t.submethodPag.onlyUnlearned}
+        </label>
+        {groups.length > 0 && (
+          <select
+            value={group}
+            onChange={(e) => setGroup(e.target.value)}
+            className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm"
+          >
+            <option value="">{t.submethodPag.allGroups}</option>
+            {groups.map((g) => (
+              <option key={g} value={g}>{g}</option>
+            ))}
+          </select>
+        )}
+      </div>
+      {visible.length === 0 && <p className="mt-6 text-sm text-muted-foreground">{t.submethodPag.noCases}</p>}
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        {visible.map((item) => (
           <CaseCard key={`item-${item.id}`} puzzle={puzzle} submethod={submethod} item={item} />
         ))}
       </div>
