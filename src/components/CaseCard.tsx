@@ -33,11 +33,13 @@ export function CaseCard({ puzzle, submethod, item } : {puzzle: Puzzle, submetho
                 params={linkParams}
                 className="block truncate font-semibold hover:text-primary"
             >
-                {tx(item.name)}
+                <div className="flex gap-2">
+                    {tx(item.name)}
+                    <p>|</p>
+                    {item.group && (<p>{tx(item.group)}</p>)}
+                </div>
             </Link>
-            {item.group && (
-                <p className="mt-1 truncate text-xs text-muted-foreground">{tx(item.group)}</p>
-            )}
+            
             <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{tx(item.description)}</p>
             </div>
         </div>
