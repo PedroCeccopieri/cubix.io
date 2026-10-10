@@ -80,6 +80,9 @@ const en = {
     eyebrow: "Submethod",
     usedBy: "Used by:",
     viewCases: "View cases",
+    onlyUnlearned: "Only unlearned",
+    allGroups: "All groups",
+    noCases: "No cases match these filters.",
   },
   caseIdPag: {
     memoTips: "Memory tips",
@@ -201,6 +204,9 @@ const pt: UiDict = {
     eyebrow: "Submétodo",
     usedBy: "Usado por:",
     viewCases: "Ver casos",
+    onlyUnlearned: "Só não aprendidos",
+    allGroups: "Todos os grupos",
+    noCases: "Nenhum caso corresponde aos filtros.",
   },
   caseIdPag: {
     memoTips: "Dicas para memorizar",
@@ -327,6 +333,9 @@ const es: UiDict = {
     eyebrow: "Submétodo",
     usedBy: "Usado por:",
     viewCases: "Ver casos",
+    onlyUnlearned: "Solo no aprendidos",
+    allGroups: "Todos los grupos",
+    noCases: "Ningún caso coincide con los filtros.",
   },
   caseIdPag: {
     memoTips: "Consejos para memorizar",
