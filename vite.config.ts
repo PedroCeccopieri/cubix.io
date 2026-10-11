@@ -11,6 +11,14 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
-    vite: { server: { host: "0.0.0.0", port: "25565", allowedHosts: ["pcecc.ddns.net"] } },
+  },
+  // Local machine only: the Lovable sandbox always forces port 8080 and ignores this.
+  vite: {
+    server: {
+      host: "0.0.0.0",
+      port: 25565,
+      strictPort: true,
+      allowedHosts: ["pcecc.ddns.net"],
+    },
   },
 });
